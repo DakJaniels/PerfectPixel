@@ -1,9 +1,8 @@
----@class PP
+--- @class PP
 local PP = PP
 local tinsert = table.insert
 PP.compatibilityFunctions = {}
 PP.compatibility = function ()
-
     local function Compatibility()
         -- ==LibCustomMenu==--
         if LibCustomMenu then
@@ -40,7 +39,7 @@ PP.compatibility = function ()
             local lsm = LibScrollableMenu
             local lsm_SetCustomScrollableMenuOptions = SetCustomScrollableMenuOptions
 
-            local CUSTOM_HIGHLIGHT_TEXT_COLOR = ZO_ColorDef:New("FFFFFF") --white
+            local CUSTOM_HIGHLIGHT_TEXT_COLOR = ZO_ColorDef:New("FFFFFF") -- white
 
             -- Cache styled controls to avoid re-styling
             local styledLSMControls = {}
@@ -56,7 +55,7 @@ PP.compatibility = function ()
             end
 
             local function styleLSMHighlight(highlight, entryType)
-                --d("[PP]styleLSMHighlight - highlight: " .. tostring(highlight ~= nil and highlight:GetName() or "nil"))
+                -- d("[PP]styleLSMHighlight - highlight: " .. tostring(highlight ~= nil and highlight:GetName() or "nil"))
                 if not highlight or styledLSMControls[highlight] or not entryType then return end
 
                 local entryTypeToLayout =
@@ -91,14 +90,14 @@ PP.compatibility = function ()
                 end
             end
 
-            --Called from XML code to apply the row's highlight values
+            -- Called from XML code to apply the row's highlight values
             function PP.compatibilityFunctions.ApplyLSMRowHighlight(highlightControl, entryType)
-                --d("[PP]applyPPLSMRowHighlight - highlight: " .. tostring(highlightControl:GetName()))
+                -- d("[PP]applyPPLSMRowHighlight - highlight: " .. tostring(highlightControl:GetName()))
                 styleLSMHighlight(highlightControl, entryType)
             end
 
             local function hideControlMungeOverlays(parentControl)
-                --d("[PP]hideControlMungeOverlays")
+                -- d("[PP]hideControlMungeOverlays")
                 if not parentControl or styledLSMControls[parentControl] then return end
                 local overlayControls =
                 {
@@ -109,23 +108,23 @@ PP.compatibility = function ()
                 }
                 for _, control in ipairs(overlayControls) do
                     if control then
-                        --d(">sethidden true on " .. tostring(control:GetName()))
+                        -- d(">sethidden true on " .. tostring(control:GetName()))
                         control:SetHidden(true)
                     end
                 end
-                --SetCenterTexture(*string* _filename_, *layout_measurement* _tilingInterval_, *[TextureAddressMode|#TextureAddressMode]* _addressMode_)
-                --parentControl:SetCenterTexture(nil, 4, 0)
+                -- SetCenterTexture(*string* _filename_, *layout_measurement* _tilingInterval_, *[TextureAddressMode|#TextureAddressMode]* _addressMode_)
+                -- parentControl:SetCenterTexture(nil, 4, 0)
                 parentControl:SetCenterColor(10 / 255, 10 / 255, 10 / 255, 0.96)
-                --SetEdgeTexture(*string* _filename_, *integer* _edgeFileWidth_, *integer* _edgeFileHeight_, *layout_measurement* _cornerSize_, *integer* _edgeFilePadding_)
-                --parentControl:SetEdgeTexture(nil, 1, 1, 1, 0)
+                -- SetEdgeTexture(*string* _filename_, *integer* _edgeFileWidth_, *integer* _edgeFileHeight_, *layout_measurement* _cornerSize_, *integer* _edgeFilePadding_)
+                -- parentControl:SetEdgeTexture(nil, 1, 1, 1, 0)
                 parentControl:SetEdgeColor(60 / 255, 60 / 255, 60 / 255, 1)
-                --SetInsets(*layout_measurement* _left_, *layout_measurement* _top_, *layout_measurement* _right_, *layout_measurement* _bottom_)
-                --parentControl:SetInsets(-1, -1, 1, 1)
+                -- SetInsets(*layout_measurement* _left_, *layout_measurement* _top_, *layout_measurement* _right_, *layout_measurement* _bottom_)
+                -- parentControl:SetInsets(-1, -1, 1, 1)
                 styledLSMControls[parentControl] = true
             end
 
             local function addPPStyle(control, data, templateName)
-                --d("[PP]addPP - control: " .. tostring(control) .. ", data: " .. tostring(data) .. "; templateName: " ..tostring(templateName))
+                -- d("[PP]addPP - control: " .. tostring(control) .. ", data: " .. tostring(data) .. "; templateName: " ..tostring(templateName))
                 if control and not styledLSMControls[control] then
                     PP:CreateBackground(control, nil, nil, nil, -2, 1, nil, nil, nil, -2, -1)
                     hideControlMungeOverlays(control)
@@ -143,23 +142,23 @@ PP.compatibility = function ()
             end
 
             local function addPPBackgroundToLSMDropdown(dropdownControl, dropdownObject)
-                --d("[PP]addPPBackgroundToLSMDropdown")
+                -- d("[PP]addPPBackgroundToLSMDropdown")
                 if not dropdownControl then return end
 
                 dropdownObject = dropdownObject or dropdownControl.m_dropdownObject
                 if not dropdownObject then return end
-                --d(">dropdownObject found")
+                -- d(">dropdownObject found")
                 local comboBoxDropdownCtrl = dropdownObject.control
 
                 -- Style background only once
                 local bg = comboBoxDropdownCtrl ~= nil and GetControl(comboBoxDropdownCtrl, "BG")
-                --d(">bg found: " ..tostring(bg))
+                -- d(">bg found: " ..tostring(bg))
                 addPPStyle(bg, nil, nil)
 
                 -- Style scrollbar only once
                 local scrollList = dropdownObject.scroll
                 if scrollList and not styledLSMControls[scrollList] then
-                    --d(">scrollList found: " ..tostring(scrollList))
+                    -- d(">scrollList found: " ..tostring(scrollList))
                     PP.ScrollBar(scrollList)
                     styledLSMControls[scrollList] = true
                 end
@@ -167,29 +166,29 @@ PP.compatibility = function ()
 
             local PP_LSMDropdownOptions =
             {
-                --visibleRowsDropdown = 30,
-                --visibleRowsSubmenu = 30,
-                --maxDropdownHeight = 400,
-                --sortEntries = true,
-                --sortType = ZO_SORT_BY_NAME,
-                --sortOrder = ZO_SORT_ORDER_UP,
-                --font = PP.f.u67,
-                --spacing = 2,
-                --disableFadeGradient = false,
-                --headerColor = ZO_ColorDef:New("E6E6E6FF"),
-                --normalColor = ZO_ColorDef:New("E6E6E6FF"),
-                --disabledColor = ZO_ColorDef:New("666666FF"),
-                --highlightContextMenuOpeningControl = true,
-                --useDefaultHighlightForSubmenuWithCallback = false,
-                --highlightColor =	CUSTOM_HIGHLIGHT_TEXT_COLOR,
-                --highlightTemplate =	"ZO_TallListSelectedHighlight",
-                --titleText = "Dropdown Title",
-                --titleFont = PP.f.u67,
-                --subtitleText = "Dropdown Subtitle",
-                --subtitleFont = PP.f.u57,
+                -- visibleRowsDropdown = 30,
+                -- visibleRowsSubmenu = 30,
+                -- maxDropdownHeight = 400,
+                -- sortEntries = true,
+                -- sortType = ZO_SORT_BY_NAME,
+                -- sortOrder = ZO_SORT_ORDER_UP,
+                -- font = PP.f.u67,
+                -- spacing = 2,
+                -- disableFadeGradient = false,
+                -- headerColor = ZO_ColorDef:New("E6E6E6FF"),
+                -- normalColor = ZO_ColorDef:New("E6E6E6FF"),
+                -- disabledColor = ZO_ColorDef:New("666666FF"),
+                -- highlightContextMenuOpeningControl = true,
+                -- useDefaultHighlightForSubmenuWithCallback = false,
+                -- highlightColor =	CUSTOM_HIGHLIGHT_TEXT_COLOR,
+                -- highlightTemplate =	"ZO_TallListSelectedHighlight",
+                -- titleText = "Dropdown Title",
+                -- titleFont = PP.f.u67,
+                -- subtitleText = "Dropdown Subtitle",
+                -- subtitleFont = PP.f.u57,
                 titleTextAlignment = TEXT_ALIGN_CENTER,
 
-                --Apply PP highlight stle, same as ZO_Menu uses, to LSM entryTypes' highlights
+                -- Apply PP highlight stle, same as ZO_Menu uses, to LSM entryTypes' highlights
                 XMLRowHighlightTemplates =
                 {
                     [lsm.LSM_ENTRY_TYPE_NORMAL] =
@@ -222,16 +221,16 @@ PP.compatibility = function ()
             }
 
             local function mixinPPOptionsToLSMOptions(dropdownObject, options)
-                --d(">mixinPPOptionsToLSMOptions - dropdownObject: " .. tostring(dropdownObject and dropdownObject.m_container or nil) .. ", options: " ..tostring(options))
+                -- d(">mixinPPOptionsToLSMOptions - dropdownObject: " .. tostring(dropdownObject and dropdownObject.m_container or nil) .. ", options: " ..tostring(options))
                 if options == nil then
                     if dropdownObject then
                         if dropdownObject.GetOptions then
                             options = dropdownObject:GetOptions()
-                            --d(">>options taken from dropdownObject:GetOptions()")
+                            -- d(">>options taken from dropdownObject:GetOptions()")
                         else
                             local comboBoxObject = ZO_ComboBox_ObjectFromContainer(dropdownObject)
                             options = (comboBoxObject ~= nil and comboBoxObject:GetOptions()) or nil
-                            --d(">>options taken from ZO_ComboBox_ObjectFromContainer():GetOptions()")
+                            -- d(">>options taken from ZO_ComboBox_ObjectFromContainer():GetOptions()")
                         end
                     end
                     options = options or {}
@@ -243,7 +242,7 @@ PP.compatibility = function ()
             local function mixinPPOptionsAndUpdateThemToDropdown(dropdownObject, dropdownControl, isContextMenu)
                 dropdownObject = dropdownObject or dropdownControl.m_dropdownObject
                 if dropdownObject then
-                    --d(">mixinPPOptionsAndUpdateThemToDropdown")
+                    -- d(">mixinPPOptionsAndUpdateThemToDropdown")
                     local options
                     options = mixinPPOptionsToLSMOptions(dropdownObject, options)
                     lsm_SetCustomScrollableMenuOptions(options, (not isContextMenu and dropdownObject) or nil)
@@ -251,7 +250,7 @@ PP.compatibility = function ()
             end
 
             -- Register LSM callback handlers with options -> Maybe that this register comes after the other addon was loaded :-(
-            -->So we use the 'OnMenuShow' and 'OnContextMenuShow' callbacks below for a 2nd chance to mixin the PP options
+            -- >So we use the 'OnMenuShow' and 'OnContextMenuShow' callbacks below for a 2nd chance to mixin the PP options
             lsm:RegisterCallback("OnDropdownMenuAdded", function (dropdownObject, options)
                 local dropDownTLCCtrl = dropdownObject.m_container
 
@@ -260,7 +259,7 @@ PP.compatibility = function ()
 				d("[PP]LSM OnDropdownMenuAdded - dropdown: " ..tostring(lsm.GetControlName(dropDownTLCCtrl)))
 				d("[PP]================================================================")
 				]]
-                --Overwrite the options of the LSM with the PP styled options
+                -- Overwrite the options of the LSM with the PP styled options
                 return mixinPPOptionsToLSMOptions(dropdownObject, options)
             end)
 
@@ -280,7 +279,7 @@ PP.compatibility = function ()
 				d("[PP]LSM OnSubMenuShow - dropdown: " .. tostring(lsm.GetControlName(dropDownTLCCtrl)) .. ", name: " .. tostring(lsm.GetControlName(dropdownControl)))
 				]]
                 addPPBackgroundToLSMDropdown(dropdownControl, dropdownObject)
-                --options of mainMenu should be copied to submenu automatically so no need to PPify (mixin) it explicitly here
+                -- options of mainMenu should be copied to submenu automatically so no need to PPify (mixin) it explicitly here
             end)
 
             lsm:RegisterCallback("OnContextMenuShow", function (dropdownControl, dropdownObject)
@@ -360,8 +359,8 @@ PP.compatibility = function ()
         if PotMaker then
             PP.Anchor(ZO_AlchemyTopLevelContent, --[[#1]] TOPRIGHT, ZO_AlchemyTopLevel, TOPRIGHT, 0, 100, --[[#2]] true, BOTTOMRIGHT, ZO_AlchemyTopLevel, BOTTOMRIGHT, 0, -80)
             ZO_AlchemyTopLevelContent:SetWidth(565)
-            --PP:CreateBackground(ZO_AlchemyTopLevelPotionMaker, --[[#1]] nil, nil, nil, -6, 0, --[[#2]] nil, nil, nil, 0, 6)
-            --PP:CreateBackground(ZO_AlchemyTopLevelPoisonMaker, --[[#1]] nil, nil, nil, -6, 0, --[[#2]] nil, nil, nil, 0, 6)
+            -- PP:CreateBackground(ZO_AlchemyTopLevelPotionMaker, --[[#1]] nil, nil, nil, -6, 0, --[[#2]] nil, nil, nil, 0, 6)
+            -- PP:CreateBackground(ZO_AlchemyTopLevelPoisonMaker, --[[#1]] nil, nil, nil, -6, 0, --[[#2]] nil, nil, nil, 0, 6)
             PP:CreateBackground(ZO_AlchemyTopLevelPotionMaker, --[[#1]] nil, nil, nil, -6, 10, --[[#2]] nil, nil, nil, 0, -4)
             PP:CreateBackground(ZO_AlchemyTopLevelPoisonMaker, --[[#1]] nil, nil, nil, -6, 10, --[[#2]] nil, nil, nil, 0, -4)
         end
@@ -423,8 +422,8 @@ PP.compatibility = function ()
             ZO_Scroll_SetMaxFadeDistance(IIFA_GUI_ListHolder, PP.savedVars.ListStyle.list_fade_distance)
             PP.Font(IIFA_GUI_Header_Label, --[[Font]] PP.f.u67, 18, "outline", --[[Alpha]] nil, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
             if IIFA_GUI_ListHolder and IIFA_GUI_ListHolder_Counts then
-                --PP.Anchor(IIFA_GUI_ListHolder_Counts_Items, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, -59, 0)
-                --PP.Anchor(IIFA_GUI_ListHolder_Counts_Slots, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, -59, 0)
+                -- PP.Anchor(IIFA_GUI_ListHolder_Counts_Items, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, -59, 0)
+                -- PP.Anchor(IIFA_GUI_ListHolder_Counts_Slots, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, -59, 0)
                 IIFA_GUI_ListHolder_Counts_Items:SetAnchorOffsets(0, 59)
                 IIFA_GUI_ListHolder_Counts_Slots:SetAnchorOffsets(0, 59)
             end
@@ -548,7 +547,7 @@ PP.compatibility = function ()
             PP.Anchor(LibSets_SearchUI_TLC_KeyboardContentListScrollBar, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, nil, nil)
             ZO_Scroll_SetMaxFadeDistance(LibSets_SearchUI_TLC_KeyboardContentList, PP.savedVars.ListStyle.list_fade_distance)
 
-            --Item set collections
+            -- Item set collections
             ITEM_SETS_BOOK_SCENE:RegisterCallback("StateChange", function (oldState, newState)
                 if newState == SCENE_SHOWN then
                     if ZO_ItemSetsBook_Keyboard_TopLevelFiltersLibSetsMoreOptions ~= nil then
@@ -960,8 +959,8 @@ PP.compatibility = function ()
         -- ===============================================================================================--
 
         -- ==ExtendedJournal==
-        --Initial compatibility started by DakJaniels. Many thanks!
-        -->Proper function SetAlternateMode added by code65536 -> Many thanks for adding this
+        -- Initial compatibility started by DakJaniels. Many thanks!
+        -- >Proper function SetAlternateMode added by code65536 -> Many thanks for adding this
         if LibExtendedJournal and LibExtendedJournal.SetAlternateMode then
             local callbackMain = function ()
                 local frame = LibExtendedJournal.GetFrame()

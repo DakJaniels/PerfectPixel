@@ -1,5 +1,5 @@
 <GuiXml>
-    <Controls>
+	<Controls>
 		<!-- LibScrollableMenu  - Highlight for ZO_SortFilterList entries where a submenu got a callback function - Light green
 			Normal highlight is ZO_SelectionHighlight  -light blue
 			PP's normal highlight will be the one of PP's ZO_Menu -> Color changed to grey
@@ -19,5 +19,5 @@
 				PP.compatibilityFunctions.ApplyLSMRowHighlight(self, LibScrollableMenu.LSM_ENTRY_TYPE_BUTTON)
 			</OnInitialized>
 		</Backdrop>
-    </Controls>
+	</Controls>
 </GuiXml>
