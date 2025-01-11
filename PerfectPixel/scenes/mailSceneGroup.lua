@@ -1,3 +1,6 @@
+---@class PP
+local PP = PP
+
 PP.mailSceneGroup = function()
 
 	local SV = PP.savedVars.ListStyle

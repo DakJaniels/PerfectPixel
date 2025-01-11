@@ -1,3 +1,6 @@
+---@class PP
+local PP = PP
+
 PP.groupMenuKeyboardScene = function()
 
 	--KEYBOARD_GROUP_MENU_SCENE:RemoveFragment(FRAME_PLAYER_FRAGMENT)

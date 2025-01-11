@@ -1,4 +1,5 @@
-local PP		= PP
+---@class PP
+local PP = PP
 local namespace	= 'InventoryScene'
 
 PP.inventoryScene = function()

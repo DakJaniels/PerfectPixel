@@ -1,3 +1,6 @@
+---@class PP
+local PP = PP
+
 PP.statsScene = function()
 --STATS
 	-- STATS_SCENE:RemoveFragment(FRAME_PLAYER_FRAGMENT)

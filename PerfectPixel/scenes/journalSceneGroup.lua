@@ -1,3 +1,4 @@
+---@class PP
 local PP = PP
 local removeFragmentsFromScene = PP.removeFragmentsFromScene
 

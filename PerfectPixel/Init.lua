@@ -1,3 +1,4 @@
+---@class PP
 _G['PP'] = {
 	['media']			= { ['textures'] = {}, ['edges'] = {}, ['fonts'] = {}, ['colors'] = {}, },
 	['modules']			= {},
@@ -13,6 +14,7 @@ _G['PP'] = {
 	['ADDON_VERSION'] 	= '0.13.15',
 }
 
+---@class PP
 local PP = PP
 
 EVENT_MANAGER:RegisterForEvent(PP.ADDON_NAME, EVENT_ADD_ON_LOADED, function(eventType, addonName)

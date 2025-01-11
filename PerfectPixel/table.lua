@@ -1,3 +1,4 @@
+---@class PP
 local PP = PP
 
 PP.TabList = {

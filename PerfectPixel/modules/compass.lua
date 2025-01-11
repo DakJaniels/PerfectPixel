@@ -1,3 +1,6 @@
+---@class PP
+local PP = PP
+
 PP.compass = function()
 	local SV, DEF = PP:AddNewSavedVars(0.2, 'Compass', {
 		toggle			= true,
@@ -109,7 +112,7 @@ PP.compass = function()
 
 	PP.Anchor(CF_B, --[[#1]] TOPLEFT, compassFrame, TOPLEFT, -5, 3, --[[#2]] true, BOTTOMRIGHT, compassFrame, BOTTOMRIGHT,	5, -3)
 	CF_B:SetCenterTexture("PerfectPixel/tex/tex_white.dds", 8, 0)
-	CF_B:SetEdgeTexture("PerfectPixel/tex/edge_outer_shadow_128x16.dds", 128, 16, 16, 0)
+	CF_B:SetEdgeTexture("PerfectPixel/tex/edge_outer_shadow_128x16.dds", 128, 16, 16)
 	CF_B:SetInsets(5, 5, -5, -5)
 	CF_B:SetCenterColor(SV.col[1], SV.col[2], SV.col[3], SV.col[4])
 	CF_B:SetEdgeColor(SV.col_e[1], SV.col_e[2], SV.col_e[3], SV.col_e[4])
@@ -140,7 +143,7 @@ PP.compass = function()
 			local qa_b = areaTexture.backdrop
 			PP.Anchor(qa_b, --[[#1]] TOPLEFT, compassFrame, TOPLEFT, -5, 3, --[[#2]] true, BOTTOMRIGHT, compassFrame, BOTTOMRIGHT,	5, -3)
 			qa_b:SetCenterTexture("PerfectPixel/tex/tex_white.dds", 8, 0)
-			qa_b:SetEdgeTexture("PerfectPixel/tex/edge_outer_shadow_128x16.dds", 128, 16, 16, 0)
+			qa_b:SetEdgeTexture("PerfectPixel/tex/edge_outer_shadow_128x16.dds", 128, 16, 16)
 			qa_b:SetInsets(5, 5, -5, -5)
 			qa_b:SetCenterColor(SV.qa_col[1], SV.qa_col[2], SV.qa_col[3], SV.qa_col[4])
 			qa_b:SetEdgeColor(SV.qa_col_e[1], SV.qa_col_e[2], SV.qa_col_e[3], SV.qa_col_e[4])

@@ -1,3 +1,5 @@
+---@class PP
+local PP = PP
 local media		= PP.media
 local tinsert	= table.insert
 

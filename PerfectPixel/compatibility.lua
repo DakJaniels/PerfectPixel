@@ -1,7 +1,8 @@
+---@class PP
+local PP = PP
+local tinsert = table.insert
 PP.compatibilityFunctions = {}
 PP.compatibility = function ()
-    local PP = PP
-    local tinsert = table.insert
 
     local function Compatibility()
         -- ==LibCustomMenu==--
