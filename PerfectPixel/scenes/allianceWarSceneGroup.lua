@@ -41,6 +41,10 @@ local function EditElements()
         --elseif newState == SCENE_HIDDEN then
         end
 	end)
+    if ZO_CampaignBonusesList and ZO_CampaignBonusesListScrollBar then
+        PP.ScrollBar(ZO_CampaignBonusesListScrollBar)
+        ZO_Scroll_SetMaxFadeDistance(ZO_CampaignBonusesList, PP.savedVars.ListStyle.list_fade_distance)
+    end
 end
 
 PP.allianceWarSceneGroup = function()
