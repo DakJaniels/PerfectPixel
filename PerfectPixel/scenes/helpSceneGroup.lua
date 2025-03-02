@@ -21,6 +21,15 @@ PP.helpSceneGroup = function()
 		PP.Anchor(tlc, --[[#1]] TOPRIGHT, GuiRoot, TOPRIGHT, 0, 120, --[[#2]] true, BOTTOMRIGHT, GuiRoot, BOTTOMRIGHT, 0, -70)
 	end
 
+	local emoteScrollBar = ZO_PlayerEmote_Keyboard_TopLevelEmoteContainerContainerListScrollBar
+    local emoteContainerList = ZO_PlayerEmote_Keyboard_TopLevelEmoteContainerContainerList
+    local emoteUnderLay = ZO_PlayerEmote_Keyboard_TopLevelEmoteWheelUnderlay
+	if emoteContainerList and emoteScrollBar then
+		PP.ScrollBar(emoteScrollBar, --[[sb_c]] 180, 180, 180, 0.7, --[[bd_c]] 20, 20, 20, 0.7, true)
+        ZO_Scroll_SetMaxFadeDistance(emoteContainerList, PP.savedVars.ListStyle.list_fade_distance)
+        emoteUnderLay:SetAlpha(0)
+	end
+
 	local helpTutorialObj = scenes[1].gVar -- HELP
 	local helpTutorialFragment = scenes[1].fragment -- HELP_TUTORIALS_FRAGMENT
 
