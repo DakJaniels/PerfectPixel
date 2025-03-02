@@ -46,58 +46,72 @@ function PP:GetSavedVars(namespace)
 	return SV, SV.default
 end
 
-function PP.Empty() end
+PP.Empty = function () end
 local empty = PP.Empty
 
-function PP.PostHooksSetupCallback(list, mode, typeId, onCreateFn, onUpdateFn)
+PP.PostHooksSetupCallback = function (list, mode, typeId, onCreateFn, onUpdateFn)
 	local dataType = list.dataTypes[typeId]
 	if not dataType then return end
 
-    local hooks = dataType.hooks or {}
-
+	-- Setup hooks structure if it doesn't exist
 	if not dataType.hooks then
+		dataType.hooks = {}
 		for m = 1, 3 do
-			hooks[m] = { OnCreate = empty, OnUpdate = empty }
+			dataType.hooks[m] = { OnCreate = empty, OnUpdate = empty }
 		end
-
-		dataType.hooks = hooks
-
-		local pool				= dataType.pool
-		local _customFactory	= pool.customFactoryBehavior
-		local _setupCallback	= dataType.setupCallback
-
-		if _customFactory then
-			pool.customFactoryBehavior = function(...)
-				_customFactory(...)
-				hooks[list.mode].OnCreate(...)
+		
+		-- Store original callbacks
+		local pool = dataType.pool
+		local originalCustomFactory = pool.customFactoryBehavior
+		local originalSetupCallback = dataType.setupCallback
+		
+		-- Replace customFactoryBehavior only once
+		pool.customFactoryBehavior = function(...)
+			if originalCustomFactory then
+				originalCustomFactory(...)
 			end
-		else
-			pool.customFactoryBehavior = function(...)
-				hooks[list.mode].OnCreate(...)
-			end
+			-- Call the current mode's OnCreate hook
+			dataType.hooks[list.mode].OnCreate(...)
 		end
-
+		
+		-- Replace setupCallback only once
 		dataType.setupCallback = function(...)
-			_setupCallback(...)
-			hooks[list.mode].OnUpdate(...)
+			originalSetupCallback(...)
+			-- Call the current mode's OnUpdate hook
+			dataType.hooks[list.mode].OnUpdate(...)
 		end
 	end
 
-	local modeHooks = hooks[mode]
-	local _OnCreate = modeHooks.OnCreate
-	local _OnUpdate = modeHooks.OnUpdate
+	-- Get hooks for the specified mode
+	local modeHooks = dataType.hooks[mode]
 
+	-- Set OnCreate hook if provided
 	if onCreateFn then
-		modeHooks.OnCreate = _OnCreate == empty and onCreateFn or function(...)
-			_OnCreate(...)
-			onCreateFn(...)
+		local previousOnCreate = modeHooks.OnCreate
+		if previousOnCreate == empty then
+			modeHooks.OnCreate = onCreateFn
+		else
+			-- Avoid growing chain of functions by using direct reference to previous function
+			local finalPreviousOnCreate = previousOnCreate
+			modeHooks.OnCreate = function(...)
+				finalPreviousOnCreate(...)
+				onCreateFn(...)
+			end
 		end
 	end
 
+	-- Set OnUpdate hook if provided
 	if onUpdateFn then
-		modeHooks.OnUpdate = _OnUpdate == empty and onUpdateFn or function(...)
-			_OnUpdate(...)
-			onUpdateFn(...)
+		local previousOnUpdate = modeHooks.OnUpdate
+		if previousOnUpdate == empty then
+			modeHooks.OnUpdate = onUpdateFn
+		else
+			-- Avoid growing chain of functions by using direct reference to previous function
+			local finalPreviousOnUpdate = previousOnUpdate
+			modeHooks.OnUpdate = function(...)
+				finalPreviousOnUpdate(...)
+				onUpdateFn(...)
+			end
 		end
 	end
 end
