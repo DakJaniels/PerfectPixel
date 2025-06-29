@@ -2,6 +2,7 @@ local PP = PP ---@class PP
 local namespace	= 'CompanionScene'
 
 PP.companionsScene = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	--===============================================================================================--
 	local sv, def = PP:AddNewSavedVars(0.3, namespace, {
 		unwrappedSkillsTree	= true,

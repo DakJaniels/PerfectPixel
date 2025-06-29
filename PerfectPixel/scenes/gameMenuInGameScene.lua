@@ -1,6 +1,7 @@
 local PP = PP ---@class PP
 
 PP.gameMenuInGameScene = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 --===============================================================================================--
 	local SV_VER		= 0.1
 	local DEF = {

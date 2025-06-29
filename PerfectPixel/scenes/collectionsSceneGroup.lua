@@ -1,6 +1,7 @@
 local PP = PP ---@class PP
 
 PP.collectionsSceneGroup = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	--orig
 	function ZO_RestyleCommon_Keyboard.UpdateAnchors(control, hasSubTabs)
 

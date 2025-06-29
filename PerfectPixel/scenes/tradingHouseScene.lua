@@ -1,6 +1,7 @@
 local PP = PP ---@class PP
 
 PP.tradingHouseScene = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	local TopOffsetY	= 110
 	local BottomOffsetY	= -90
 

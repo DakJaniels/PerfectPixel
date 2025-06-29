@@ -1,6 +1,7 @@
 local PP = PP --- @class PP
 
 PP.worldMapScene = function ()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
     -- ===============================================================================================--
     -- Saved Variables setup
     local SV_VER = 0.1

@@ -1,7 +1,7 @@
 local PP = PP ---@class PP
 
 PP.mailSceneGroup = function()
-
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	local SV = PP.savedVars.ListStyle
 
 --MAIL_INBOX--MAIL_INBOX_SCENE----------------------------------------------------------------------

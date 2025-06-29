@@ -180,6 +180,7 @@ end
 
 ---Styles the attribute bars. (Health, Magicka, Stamina)
 function PP:StyleAttributeBars()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
     if not STATS or not STATS.attributeControls then return end
 
     local attributesRow = ZO_StatsPanelPaneScrollChildAttributesRow1

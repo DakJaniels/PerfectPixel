@@ -44,6 +44,7 @@ local function EditElements()
 end
 
 PP.allianceWarSceneGroup = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	for _, scene in ipairs(DEFAULT_ALLIANCE_WAR_SCENES) do
 		EditScene(scene.scene, scene.gVar.control)
 	end

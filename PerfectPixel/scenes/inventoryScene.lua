@@ -2,6 +2,7 @@ local PP = PP ---@class PP
 local namespace	= 'InventoryScene'
 
 PP.inventoryScene = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	--===============================================================================================--
 	local sv, def = PP:AddNewSavedVars(0.2, namespace, {
 		NoSpin = true,

@@ -252,6 +252,7 @@ local function EditElements()
 end
 
 PP.journalSceneGroup = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	-- local function achievementsProgressBars()
 	-- 	PP.Bars(ACHIEVEMENTS.summaryProgressBarsScrollChild, false, nil, nil, nil, nil, true)
 	-- end

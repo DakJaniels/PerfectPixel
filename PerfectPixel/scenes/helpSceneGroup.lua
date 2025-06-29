@@ -2,6 +2,7 @@ local PP = PP ---@class PP
 local removeFragmentsFromScene = PP.removeFragmentsFromScene
 
 PP.helpSceneGroup = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	local scenes = {
 		{ scene = SCENE_MANAGER:GetScene('helpTutorials'), fragment = HELP_TUTORIALS_FRAGMENT, 	gVar = HELP, },
 		{ scene = HELP_EMOTES_SCENE,                       										gVar = KEYBOARD_PLAYER_EMOTE, },

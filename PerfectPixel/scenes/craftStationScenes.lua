@@ -2,6 +2,7 @@ local PP = PP ---@class PP
 local namespace	= 'CraftStations'
 
 PP.craftStationScenes = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	--===============================================================================================--
 	local sv, def = PP:AddNewSavedVars(0.2, namespace, {
 		Provisioner_ShowTooltip	= true,

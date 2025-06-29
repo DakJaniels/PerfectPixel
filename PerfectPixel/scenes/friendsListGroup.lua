@@ -2,6 +2,7 @@ local PP = PP ---@class PP
 local removeFragmentsFromScene = PP.removeFragmentsFromScene
 
 PP.friendsListGroup = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	local scenes = {
 		{ scene = FRIENDS_LIST_SCENE,	gVar = FRIENDS_LIST,	},
 		{ scene = IGNORE_LIST_SCENE,	gVar = IGNORE_LIST,		},

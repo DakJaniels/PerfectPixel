@@ -1,7 +1,7 @@
 local PP = PP ---@class PP
 
 PP.restyleStationKeyboardSceneGroup = function()
-
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	--restyle_station_keyboard--ZO_RESTYLE_SCENE--ZO_RestyleStationTopLevel_Keyboard-------------------
 	local restyleStationScene = SCENE_MANAGER:GetScene('restyle_station_keyboard')
 

@@ -1,6 +1,6 @@
 local PP = PP ---@class PP
 PP.groupMenuKeyboardScene = function()
-
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	--KEYBOARD_GROUP_MENU_SCENE:RemoveFragment(FRAME_PLAYER_FRAGMENT)
 	PP.RemoveFragmentFromSceneAndKeepPreviewFunctionality(KEYBOARD_GROUP_MENU_SCENE, FRAME_PLAYER_FRAGMENT, {"PreviewInventoryItem", "PreviewOutfit", "PreviewCollectible"}, PROMOTIONAL_EVENTS_PREVIEW_OPTIONS_FRAGMENT)
 

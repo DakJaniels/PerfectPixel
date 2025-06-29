@@ -2,6 +2,7 @@ local PP = PP ---@class PP
 --local namespace	= 'LockpickingScene'
 
 PP.lockpickingScene = function()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
 	--Lockpicking
 	local lockpickSceneChanged = false
 	local function lockPickSceneShowingCallback()

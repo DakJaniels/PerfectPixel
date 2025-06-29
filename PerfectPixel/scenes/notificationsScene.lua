@@ -39,6 +39,7 @@ local function setupNotificationsUI(tlc)
 end
 
 PP.notificationsScene = function ()
+    if SCENE_MANAGER:IsCurrentSceneGamepad() then return end
     for _, sceneInfo in ipairs(SCENE_CONFIG) do
         removeFragmentsFromScene(sceneInfo.scene, NOTIFICATIONS_FRAGMENTS)
         local tlc = sceneInfo.gVar.control or sceneInfo.gVar
