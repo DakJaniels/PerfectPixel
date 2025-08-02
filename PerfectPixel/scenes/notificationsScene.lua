@@ -28,10 +28,10 @@ local function setupNotificationsUI(tlc)
 
 
     -- Scroll list configuration
-    local list = tlc:GetNamedChild("List")
-    local contents = list:GetNamedChild("Contents")
+    local list = tlc:GetNamedChild('List')
+    local contents = list:GetNamedChild('Contents')
     -- Scrollbar setup
-    local scrollBar = list:GetNamedChild("ScrollBar")
+    local scrollBar = list:GetNamedChild('ScrollBar')
     PP.ScrollBar(scrollBar)
     PP.Anchor(scrollBar, nil, nil, nil, nil, nil, true, nil, nil, nil, 14, 0)
     ZO_Scroll_SetMaxFadeDistance(contents, PP.savedVars.ListStyle.list_fade_distance)

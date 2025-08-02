@@ -1,0 +1,44 @@
+{
+    "xml.format.splitAttributes": "alignWithFirstAttr",
+    "xml.fileAssociations": [
+        {
+            "pattern": "**/bindings.xml",
+            "systemId": "https://raw.githubusercontent.com/DakJaniels/esoui_gui_xsd/main/esobindings.xsd"
+        },
+        {
+            "pattern": "**/*.xml",
+            "systemId": "https://raw.githubusercontent.com/DakJaniels/esoui_gui_xsd/main/esoui_gui_xml.xsd"
+        }
+    ],
+    "Lua.workspace.library": [
+        "C:/Users/dack_janiels/Downloads/bbb-4.2.0/101047/",
+        "C:/Users/dack_janiels/source/repos/meta/.doc_creators/lua/generated_enums/",
+        "C:/Users/dack_janiels/source/repos/meta/.doc_creators/php/.api/",
+        "C:/Users/dack_janiels/source/repos/meta/.doc_creators/php/eso_game.lua",
+        "C:/Users/dack_janiels/source/repos/meta/.doc_creators/php/eso-api_events.lua",
+    ],
+    "Lua.diagnostics.disable": [
+        "param-type-mismatch",
+        "undefined-field",
+        "need-check-nil",
+        "cast-local-type",
+        "duplicate-set-field",
+        "invisible",
+        "inject-field"
+    ],
+    "Lua.diagnostics.globals": [
+        "PerfectPixelOptions",
+        "LibAddonMenu2",
+        "LibMediaProvider",
+        "GuiRoot",
+        "AddonSelector",
+        "GridList"
+    ],
+    "Lua.diagnostics.globalsRegex": [
+        "^SI_",
+        "^ZO_",
+        "^PP_",
+        // "^[A-Z][A-Z0-9_]+$",
+        // "^[A-Z][a-zA-Z0-9]*$"
+    ],
+}

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local CM = CALLBACK_MANAGER
 local tinsert = table.insert
 local tos = tostring
@@ -7,29 +8,28 @@ local PP = PP ---@class PP
 PP.compatibilityFunctions = {}
 PP.compatibility = function ()
     local function Compatibility()
-
         -- ==LibMainMenu2==--
         if LibMainMenu2 then
-            local LMMXML = GetControl("LMMXML")
+            local LMMXML = GetControl('LMMXML')
             if LMMXML == nil then return end
-            local sceneGroupBar = LMMXML:GetNamedChild("SceneGroupBar")
-            local sceneGroupBarLabel = sceneGroupBar:GetNamedChild("Label")
+            local sceneGroupBar = LMMXML:GetNamedChild('SceneGroupBar')
+            local sceneGroupBarLabel = sceneGroupBar:GetNamedChild('Label')
             PP.Anchor(sceneGroupBar, --[[#1]] TOPRIGHT, GuiRoot, TOPRIGHT, -30, 64)
-            PP.Font(sceneGroupBarLabel, --[[Font]] PP.f.u67, 22, "outline", --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
+            PP.Font(sceneGroupBarLabel, --[[Font]] PP.f.u67, 22, 'outline', --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
         end
 
         -- ===============================================================================================--
         -- ==LibCustomMenu==--
         if LibCustomMenu then
             local lcmSM = LibCustomMenuSubmenu
-            local lcmSMBG = GetControl(lcmSM, "BG")
-            local lcmSMBGMungeOverlay = GetControl(lcmSMBG, "MungeOverlay")
-            local lcmSMHighlight = GetControl(lcmSM, "Highlight")
+            local lcmSMBG = GetControl(lcmSM, 'BG')
+            local lcmSMBGMungeOverlay = GetControl(lcmSMBG, 'MungeOverlay')
+            local lcmSMHighlight = GetControl(lcmSM, 'Highlight')
 
-            ZO_PreHookHandler(LibCustomMenuSubmenu, "OnShow", function ()
-                lcmSMBG:SetCenterTexture("", 4, 0)
+            ZO_PreHookHandler(LibCustomMenuSubmenu, 'OnShow', function ()
+                lcmSMBG:SetCenterTexture('', 4, 0)
                 lcmSMBG:SetCenterColor(10 / 255, 10 / 255, 10 / 255, 0.96)
-                lcmSMBG:SetEdgeTexture("", 1, 1, 1, 0)
+                lcmSMBG:SetEdgeTexture('', 1, 1, 1, 0)
                 lcmSMBG:SetEdgeColor(60 / 255, 60 / 255, 60 / 255, 1)
                 lcmSMBG:SetInsets(-1, -1, 1, 1)
                 if lcmSMBGMungeOverlay then lcmSMBGMungeOverlay:SetHidden(true) end
@@ -39,9 +39,9 @@ PP.compatibility = function ()
             -- lcmSMBG:SetInheritAlpha(false)
 
             if lcmSMHighlight then
-                lcmSMHighlight:SetCenterTexture("", 4, 0)
+                lcmSMHighlight:SetCenterTexture('', 4, 0)
                 lcmSMHighlight:SetCenterColor(96 / 255 * 0.3, 125 / 255 * 0.3, 139 / 255 * 0.3, 1)
-                lcmSMHighlight:SetEdgeTexture("", 1, 1, 1, 0)
+                lcmSMHighlight:SetEdgeTexture('', 1, 1, 1, 0)
                 lcmSMHighlight:SetEdgeColor(96 / 255 * 0.5, 125 / 255 * 0.5, 139 / 255 * 0.5, 0)
                 lcmSMHighlight:SetInsets(0, 0, 0, 0)
                 -- lcmSMHighlight:SetInheritAlpha(false)
@@ -54,14 +54,14 @@ PP.compatibility = function ()
             local lsm = LibScrollableMenu
             local lsm_SetCustomScrollableMenuOptions = SetCustomScrollableMenuOptions
 
-            local CUSTOM_HIGHLIGHT_TEXT_COLOR = ZO_ColorDef:New("FFFFFF") --white
+            local CUSTOM_HIGHLIGHT_TEXT_COLOR = ZO_ColorDef:New('FFFFFF') --white
 
             -- Cache styled controls to avoid re-styling
             local styledLSMControls = {}
 
             local function defaultEntryTypeLayout(highlight)
-                highlight:SetCenterTexture("", 4, 0)
-                highlight:SetEdgeTexture("", 1, 1, 1, 0)
+                highlight:SetCenterTexture('', 4, 0)
+                highlight:SetEdgeTexture('', 1, 1, 1, 0)
                 highlight:SetInsets(0, 0, 0, 0)
                 highlight:SetBlendMode(TEX_BLEND_MODE_ADD)
                 if highlight:IsPixelRoundingEnabled() then
@@ -99,7 +99,7 @@ PP.compatibility = function ()
                     },
                 }
                 local layoutData = entryTypeToLayout[entryType] or entryTypeToLayout[LSM_ENTRY_TYPE_NORMAL]
-                if layoutData and type(layoutData.layoutFunc) == "function" then
+                if layoutData and type(layoutData.layoutFunc) == 'function' then
                     layoutData.layoutFunc(highlight)
                     styledLSMControls[highlight] = true
                 end
@@ -116,10 +116,10 @@ PP.compatibility = function ()
                 if not parentControl or styledLSMControls[parentControl] then return end
                 local overlayControls =
                 {
-                    GetControl(parentControl, "MungeOverlay"),
-                    GetControl(parentControl, "HeaderBGDividerMungeOverlay"),
-                    GetControl(parentControl, "HeaderDividerSimpleMungeOverlay"),
-                    GetControl(parentControl, "HeaderDividerSimpleDividerMungeOverlay")
+                    GetControl(parentControl, 'MungeOverlay'),
+                    GetControl(parentControl, 'HeaderBGDividerMungeOverlay'),
+                    GetControl(parentControl, 'HeaderDividerSimpleMungeOverlay'),
+                    GetControl(parentControl, 'HeaderDividerSimpleDividerMungeOverlay')
                 }
                 for _, control in ipairs(overlayControls) do
                     if control then
@@ -166,7 +166,7 @@ PP.compatibility = function ()
                 local comboBoxDropdownCtrl = dropdownObject.control
 
                 -- Style background only once
-                local bg = comboBoxDropdownCtrl ~= nil and GetControl(comboBoxDropdownCtrl, "BG")
+                local bg = comboBoxDropdownCtrl ~= nil and GetControl(comboBoxDropdownCtrl, 'BG')
                 --d(">bg found: " ..tos(bg))
                 addPPStyle(bg, nil, nil)
 
@@ -208,28 +208,28 @@ PP.compatibility = function ()
                 {
                     [lsm.LSM_ENTRY_TYPE_NORMAL] =
                     {
-                        template = "PP_LibScrollableMenu_Highlight_Default",
+                        template = 'PP_LibScrollableMenu_Highlight_Default',
                         color = CUSTOM_HIGHLIGHT_TEXT_COLOR,
                     },
                     [lsm.LSM_ENTRY_TYPE_SUBMENU] =
                     {
-                        template = "PP_LibScrollableMenu_Highlight_Default",
-                        templateWithCallback = "PP_LibScrollableMenu_Highlight_SubmenuCallbackGreen",
+                        template = 'PP_LibScrollableMenu_Highlight_Default',
+                        templateWithCallback = 'PP_LibScrollableMenu_Highlight_SubmenuCallbackGreen',
                         color = CUSTOM_HIGHLIGHT_TEXT_COLOR,
                     },
                     [lsm.LSM_ENTRY_TYPE_CHECKBOX] =
                     {
-                        template = "PP_LibScrollableMenu_Highlight_Default",
+                        template = 'PP_LibScrollableMenu_Highlight_Default',
                         color = CUSTOM_HIGHLIGHT_TEXT_COLOR,
                     },
                     [lsm.LSM_ENTRY_TYPE_BUTTON] =
                     {
-                        template = "PP_LibScrollableMenu_Highlight_Button_Default",
+                        template = 'PP_LibScrollableMenu_Highlight_Button_Default',
                         color = CUSTOM_HIGHLIGHT_TEXT_COLOR,
                     },
                     [lsm.LSM_ENTRY_TYPE_RADIOBUTTON] =
                     {
-                        template = "PP_LibScrollableMenu_Highlight_Default",
+                        template = 'PP_LibScrollableMenu_Highlight_Default',
                         color = CUSTOM_HIGHLIGHT_TEXT_COLOR,
                     },
                 },
@@ -266,7 +266,7 @@ PP.compatibility = function ()
 
             -- Register LSM callback handlers with options -> Maybe that this register comes after the other addon was loaded :-(
             -->So we use the 'OnMenuShow' and 'OnContextMenuShow' callbacks below for a 2nd chance to mixin the PP options
-            lsm:RegisterCallback("OnDropdownMenuAdded", function (dropdownObject, options)
+            lsm:RegisterCallback('OnDropdownMenuAdded', function (dropdownObject, options)
                 local dropDownTLCCtrl = dropdownObject.m_container
 
                 --[[
@@ -278,7 +278,7 @@ PP.compatibility = function ()
                 return mixinPPOptionsToLSMOptions(dropdownObject, options)
             end)
 
-            lsm:RegisterCallback("OnMenuShow", function (dropdownControl, dropdownObject)
+            lsm:RegisterCallback('OnMenuShow', function (dropdownControl, dropdownObject)
                 --[[
 				d("[PP]--------------------------------------------------")
 				d("[PP]LSM OnMenuShow - dropdown: " .. tos(lsm.GetControlName(dropdownControl)) .. ", name: " .. tos(lsm.GetControlName(dropdownControl)))
@@ -288,7 +288,7 @@ PP.compatibility = function ()
                 mixinPPOptionsAndUpdateThemToDropdown(dropdownObject, dropdownControl)
             end)
 
-            lsm:RegisterCallback("OnSubMenuShow", function (dropdownControl, dropdownObject)
+            lsm:RegisterCallback('OnSubMenuShow', function (dropdownControl, dropdownObject)
                 local dropDownTLCCtrl = dropdownObject.m_container
                 --[[
 				d("[PP]LSM OnSubMenuShow - dropdown: " .. tos(lsm.GetControlName(dropDownTLCCtrl)) .. ", name: " .. tos(lsm.GetControlName(dropdownControl)))
@@ -297,7 +297,7 @@ PP.compatibility = function ()
                 --options of mainMenu should be copied to submenu automatically so no need to PPify (mixin) it explicitly here
             end)
 
-            lsm:RegisterCallback("OnContextMenuShow", function (dropdownControl, dropdownObject)
+            lsm:RegisterCallback('OnContextMenuShow', function (dropdownControl, dropdownObject)
                 local dropDownTLCCtrl = dropdownObject.m_container
                 --[[
 				d("[PP]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -336,10 +336,10 @@ PP.compatibility = function ()
         -- ==AddonSelector==--
         if AddonSelector then
             local SV_VER = 0.1
-            local addonSV = ZO_SavedVars:NewAccountWide(PP.ADDON_NAME, SV_VER, "GameMenuScene", {}, GetWorldName())
+            local addonSV = ZO_SavedVars:NewAccountWide(PP.ADDON_NAME, SV_VER, 'GameMenuScene', {}, GetWorldName())
             if addonSV.addons_toggle then
                 local function reAnchorAddOnsUIForAddonSelectorNow()
-			        PP.Anchor(ZO_AddOns, --[[#1]] TOPLEFT, GuiRoot, TOPLEFT, 256, 35, --[[#2]] true, BOTTOMRIGHT, GuiRoot, BOTTOMLEFT, 1200, -80)
+                    PP.Anchor(ZO_AddOns, --[[#1]] TOPLEFT, GuiRoot, TOPLEFT, 256, 35, --[[#2]] true, BOTTOMRIGHT, GuiRoot, BOTTOMLEFT, 1200, -80)
                     PP.Anchor(ZO_AddOnsList, --[[#1]] TOPLEFT, AddonSelector, BOTTOMLEFT, 0, 10, --[[#2]] true, BOTTOMRIGHT, ZO_AddOns, BOTTOMRIGHT, -20, -60)
                 end
                 reAnchorAddOnsUIForAddonSelectorNow()
@@ -352,22 +352,22 @@ PP.compatibility = function ()
                 end
                 PP.Anchor(AddonSelectorSettingsOpenDropdown, --[[#1]] TOPLEFT, ZO_AddOns, TOP, 40, -7)
 
-                PP.Font(AddonSelectorDeselectAddonsButtonKeyLabel, --[[Font]] PP.f.u57, 16, "outline")
-                PP.Font(AddonSelectorDeselectAddonsButtonNameLabel, --[[Font]] PP.f.u67, 18, "outline")
-                PP.Font(AddonSelectorSelectAddonsButtonKeyLabel, --[[Font]] PP.f.u57, 16, "outline")
-                PP.Font(AddonSelectorSelectAddonsButtonNameLabel, --[[Font]] PP.f.u67, 18, "outline")
-                PP.Font(AddonSelectorToggleAddonStateButtonKeyLabel, --[[Font]] PP.f.u57, 16, "outline")
-                PP.Font(AddonSelectorToggleAddonStateButtonNameLabel, --[[Font]] PP.f.u67, 18, "outline")
-                PP.Font(AddonSelectorStartAddonSearchButtonKeyLabel, --[[Font]] PP.f.u57, 16, "outline")
-                PP.Font(AddonSelectorStartAddonSearchButtonNameLabel, --[[Font]] PP.f.u67, 18, "outline")
+                PP.Font(AddonSelectorDeselectAddonsButtonKeyLabel, --[[Font]] PP.f.u57, 16, 'outline')
+                PP.Font(AddonSelectorDeselectAddonsButtonNameLabel, --[[Font]] PP.f.u67, 18, 'outline')
+                PP.Font(AddonSelectorSelectAddonsButtonKeyLabel, --[[Font]] PP.f.u57, 16, 'outline')
+                PP.Font(AddonSelectorSelectAddonsButtonNameLabel, --[[Font]] PP.f.u67, 18, 'outline')
+                PP.Font(AddonSelectorToggleAddonStateButtonKeyLabel, --[[Font]] PP.f.u57, 16, 'outline')
+                PP.Font(AddonSelectorToggleAddonStateButtonNameLabel, --[[Font]] PP.f.u67, 18, 'outline')
+                PP.Font(AddonSelectorStartAddonSearchButtonKeyLabel, --[[Font]] PP.f.u57, 16, 'outline')
+                PP.Font(AddonSelectorStartAddonSearchButtonNameLabel, --[[Font]] PP.f.u67, 18, 'outline')
 
                 --Register these 2 events to react on an ALT+TAB or WIN outside and reanchor the ZO_AddOns UI properly again
-                EVENT_MANAGER:UnregisterForEvent("PerfectPixel_ZO_AddOns_EVENT_GAME_FOCUS_CHANGED", EVENT_GAME_FOCUS_CHANGED)
-                EVENT_MANAGER:RegisterForEvent("PerfectPixel_ZO_AddOns_EVENT_GAME_FOCUS_CHANGED", EVENT_GAME_FOCUS_CHANGED, function()
-                    EVENT_MANAGER:UnregisterForEvent("PerfectPixel_ZO_AddOns_EVENT_ALL_GUI_SCREENS_RESIZED", EVENT_ALL_GUI_SCREENS_RESIZED)
-                    EVENT_MANAGER:RegisterForEvent("PerfectPixel_ZO_AddOns_EVENT_ALL_GUI_SCREENS_RESIZED", EVENT_ALL_GUI_SCREENS_RESIZED, function()
+                EVENT_MANAGER:UnregisterForEvent('PerfectPixel_ZO_AddOns_EVENT_GAME_FOCUS_CHANGED', EVENT_GAME_FOCUS_CHANGED)
+                EVENT_MANAGER:RegisterForEvent('PerfectPixel_ZO_AddOns_EVENT_GAME_FOCUS_CHANGED', EVENT_GAME_FOCUS_CHANGED, function ()
+                    EVENT_MANAGER:UnregisterForEvent('PerfectPixel_ZO_AddOns_EVENT_ALL_GUI_SCREENS_RESIZED', EVENT_ALL_GUI_SCREENS_RESIZED)
+                    EVENT_MANAGER:RegisterForEvent('PerfectPixel_ZO_AddOns_EVENT_ALL_GUI_SCREENS_RESIZED', EVENT_ALL_GUI_SCREENS_RESIZED, function ()
                         reAnchorAddOnsUIForAddonSelectorNow()
-                        EVENT_MANAGER:UnregisterForEvent("PerfectPixel_ZO_AddOns_EVENT_ALL_GUI_SCREENS_RESIZED", EVENT_ALL_GUI_SCREENS_RESIZED)
+                        EVENT_MANAGER:UnregisterForEvent('PerfectPixel_ZO_AddOns_EVENT_ALL_GUI_SCREENS_RESIZED', EVENT_ALL_GUI_SCREENS_RESIZED)
                     end)
                 end)
             end
@@ -386,8 +386,8 @@ PP.compatibility = function ()
         -- ==ESO Master Recipe List==--
         if ESOMRL then
             local resultTooltip = PROVISIONER.resultTooltip
-            PP:SetLockFn(resultTooltip, "SetAnchor")
-            PP:SetLockFn(resultTooltip, "ClearAnchors")
+            PP:SetLockFn(resultTooltip, 'SetAnchor')
+            PP:SetLockFn(resultTooltip, 'ClearAnchors')
         end
         -- ===============================================================================================--
 
@@ -411,7 +411,7 @@ PP.compatibility = function ()
 
         -- ==VotansMiniMap==--
         if VOTANS_MINIMAP then
-            WORLD_MAP_SCENE:RegisterCallback("StateChange", function (oldState, newState)
+            WORLD_MAP_SCENE:RegisterCallback('StateChange', function (oldState, newState)
                 if newState == SCENE_SHOWN then
                     WORLD_MAP_FRAGMENT.duration = PP.savedVars.SceneManager.fade_scene_duration
                 end
@@ -423,11 +423,11 @@ PP.compatibility = function ()
                 ZO_CompassFrameCenter:SetHidden(true)
                 ZO_CompassFrameCenterTopMungeOverlay:SetHidden(true)
                 ZO_CompassFrameCenterBottomMungeOverlay:SetHidden(true)
-                PP:SetLockFn(ZO_CompassFrameLeft, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameRight, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameCenter, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameCenterTopMungeOverlay, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameCenterBottomMungeOverlay, "SetHidden")
+                PP:SetLockFn(ZO_CompassFrameLeft, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameRight, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameCenter, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameCenterTopMungeOverlay, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameCenterBottomMungeOverlay, 'SetHidden')
             end
         end
 
@@ -441,11 +441,11 @@ PP.compatibility = function ()
                 ZO_CompassFrameCenter:SetHidden(true)
                 ZO_CompassFrameCenterTopMungeOverlay:SetHidden(true)
                 ZO_CompassFrameCenterBottomMungeOverlay:SetHidden(true)
-                PP:SetLockFn(ZO_CompassFrameLeft, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameRight, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameCenter, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameCenterTopMungeOverlay, "SetHidden")
-                PP:SetLockFn(ZO_CompassFrameCenterBottomMungeOverlay, "SetHidden")
+                PP:SetLockFn(ZO_CompassFrameLeft, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameRight, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameCenter, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameCenterTopMungeOverlay, 'SetHidden')
+                PP:SetLockFn(ZO_CompassFrameCenterBottomMungeOverlay, 'SetHidden')
             end
         end
         -- ===============================================================================================--
@@ -456,7 +456,7 @@ PP.compatibility = function ()
             PP.ScrollBar(IIFA_GUI_ListHolder_Slider)
             PP.Anchor(IIFA_GUI_ListHolder_Slider, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, 14, 0)
             ZO_Scroll_SetMaxFadeDistance(IIFA_GUI_ListHolder, PP.savedVars.ListStyle.list_fade_distance)
-            PP.Font(IIFA_GUI_Header_Label, --[[Font]] PP.f.u67, 18, "outline")
+            PP.Font(IIFA_GUI_Header_Label, --[[Font]] PP.f.u67, 18, 'outline')
             if IIFA_GUI_ListHolder and IIFA_GUI_ListHolder_Counts then
                 --PP.Anchor(IIFA_GUI_ListHolder_Counts_Items, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, -59, 0)
                 --PP.Anchor(IIFA_GUI_ListHolder_Counts_Slots, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, -59, 0)
@@ -465,10 +465,10 @@ PP.compatibility = function ()
             end
             IIFA_GUI_BGMungeOverlay:SetHidden(true)
             if IIFA_ITEM_TOOLTIP then
-                PP.SetStyle_Tooltip(GetControl("IIFA_ITEM_TOOLTIP"))
+                PP.SetStyle_Tooltip(GetControl('IIFA_ITEM_TOOLTIP'))
             end
             if IIFA_POPUP_TOOLTIP then
-                PP.SetStyle_Tooltip(GetControl("IIFA_POPUP_TOOLTIP"))
+                PP.SetStyle_Tooltip(GetControl('IIFA_POPUP_TOOLTIP'))
             end
             PP:CreateBackground(IIFA_CharBagFrame, --[[#1]] nil, nil, nil, 0, 0, --[[#2]] nil, nil, nil, 0, 0)
             PP:CreateBackground(IIFA_CharBagFrame_BG, --[[#1]] nil, nil, nil, 0, 0, --[[#2]] nil, nil, nil, 0, 0)
@@ -525,24 +525,24 @@ PP.compatibility = function ()
             local scrollElements =
             {
                 {
-                    scrollBar = "DolgubonSetCrafterWindowFavouritesScrollListScrollBar",
-                    contents = "DolgubonSetCrafterWindowFavouritesScrollListContents",
-                    thumbMunge = "DolgubonSetCrafterWindowFavouritesScrollListScrollBarThumbMunge",
+                    scrollBar = 'DolgubonSetCrafterWindowFavouritesScrollListScrollBar',
+                    contents = 'DolgubonSetCrafterWindowFavouritesScrollListContents',
+                    thumbMunge = 'DolgubonSetCrafterWindowFavouritesScrollListScrollBarThumbMunge',
                 },
                 {
-                    scrollBar = "DolgubonSetCrafterWindowMaterialListListScrollBar",
-                    contents = "DolgubonSetCrafterWindowMaterialListListContents",
-                    thumbMunge = "DolgubonSetCrafterWindowMaterialListListScrollBarThumbMunge",
+                    scrollBar = 'DolgubonSetCrafterWindowMaterialListListScrollBar',
+                    contents = 'DolgubonSetCrafterWindowMaterialListListContents',
+                    thumbMunge = 'DolgubonSetCrafterWindowMaterialListListScrollBarThumbMunge',
                 },
                 {
-                    scrollBar = "CraftingQueueScrollListScrollBar",
-                    contents = "CraftingQueueScrollListContents",
-                    thumbMunge = "CraftingQueueScrollListScrollBarThumbMunge",
+                    scrollBar = 'CraftingQueueScrollListScrollBar',
+                    contents = 'CraftingQueueScrollListContents',
+                    thumbMunge = 'CraftingQueueScrollListScrollBarThumbMunge',
                 },
                 {
-                    scrollBar = "DolgubonSetCrafterWindowFurnitureListScrollBar",
-                    contents = "DolgubonSetCrafterWindowFurnitureListContents",
-                    thumbMunge = "DolgubonSetCrafterWindowFurnitureListScrollBarThumbMunge",
+                    scrollBar = 'DolgubonSetCrafterWindowFurnitureListScrollBar',
+                    contents = 'DolgubonSetCrafterWindowFurnitureListContents',
+                    thumbMunge = 'DolgubonSetCrafterWindowFurnitureListScrollBarThumbMunge',
                 },
             }
 
@@ -584,8 +584,8 @@ PP.compatibility = function ()
         if DolgubonsWrits then
             local dlwcSmallUI = DolgubonsWrits
             if dlwcSmallUI then
-                if DolgubonsWritCrafterSavedVars and 
-                   DolgubonsWritCrafterSavedVars["Default"][GetDisplayName()]["$AccountWide"]["skin"] ~= "default" then
+                if DolgubonsWritCrafterSavedVars and
+                DolgubonsWritCrafterSavedVars['Default'][GetDisplayName()]['$AccountWide']['skin'] ~= 'default' then
                     -- Skip styling for DolgubonsWrits if skin is not "default"
                 else
                     PP:CreateBackground(dlwcSmallUI, nil, nil, nil, 0, 0, nil, nil, nil, 0, 0)
@@ -610,32 +610,32 @@ PP.compatibility = function ()
                     local backdrop = PP:CreateBgToSlot(control)
                     backdrop:SetCenterColor(20 / 255, 20 / 255, 20 / 255, 0.8)
                     backdrop:SetEdgeColor(40 / 255, 40 / 255, 40 / 255, 0.9)
-                    backdrop:SetEdgeTexture("", 1, 1, 1, 0)
+                    backdrop:SetEdgeTexture('', 1, 1, 1, 0)
                     backdrop:SetInsets(1, 1, -1, -1)
                 end
 
                 -- Style each craft section in the row
                 for i = 1, 7 do
-                    local craftControl = control:GetNamedChild("Craft" .. i)
+                    local craftControl = control:GetNamedChild('Craft' .. i)
                     if craftControl then
                         -- Hide the default backdrop
-                        local bg = craftControl:GetNamedChild("BG")
+                        local bg = craftControl:GetNamedChild('BG')
                         if bg then
                             bg:SetHidden(true)
                         end
 
                         -- Style the labels
-                        local nameLabel = craftControl:GetNamedChild("Name")
-                        local amountLabel = craftControl:GetNamedChild("Amount")
+                        local nameLabel = craftControl:GetNamedChild('Name')
+                        local amountLabel = craftControl:GetNamedChild('Amount')
 
                         if nameLabel then
                             -- Keep original color (76BCC3 from WritCreater.xml)
-                            PP.Font(nameLabel, PP.f.u67, 16, "outline")
+                            PP.Font(nameLabel, PP.f.u67, 16, 'outline')
                             PP.Anchor(nameLabel, --[[#1]] LEFT, craftControl, LEFT, 5, 0)
                         end
 
                         if amountLabel then
-                            PP.Font(amountLabel, PP.f.u67, 16, "outline")
+                            PP.Font(amountLabel, PP.f.u67, 16, 'outline')
                             PP.Anchor(amountLabel, --[[#1]] RIGHT, craftControl, RIGHT, -5, 0)
                         end
                     end
@@ -646,10 +646,10 @@ PP.compatibility = function ()
                 control:SetMouseEnabled(true)
 
                 -- Add mouseover highlight behavior
-                control:SetHandler("OnMouseEnter", function (self)
+                control:SetHandler('OnMouseEnter', function (self)
                     self.backdrop:SetCenterColor(30 / 255, 30 / 255, 30 / 255, 0.8)
                 end)
-                control:SetHandler("OnMouseExit", function (self)
+                control:SetHandler('OnMouseExit', function (self)
                     self.backdrop:SetCenterColor(20 / 255, 20 / 255, 20 / 255, 0.8)
                 end)
             end
@@ -664,7 +664,7 @@ PP.compatibility = function ()
             ZO_Scroll_SetMaxFadeDistance(LibSets_SearchUI_TLC_KeyboardContentList, PP.savedVars.ListStyle.list_fade_distance)
 
             --Item set collections
-            ITEM_SETS_BOOK_SCENE:RegisterCallback("StateChange", function (oldState, newState)
+            ITEM_SETS_BOOK_SCENE:RegisterCallback('StateChange', function (oldState, newState)
                 if newState == SCENE_SHOWN then
                     if ZO_ItemSetsBook_Keyboard_TopLevelFiltersLibSetsMoreOptions ~= nil then
                         PP.Anchor(ZO_ItemSetsBook_Keyboard_TopLevelFiltersLibSetsMoreOptions, --[[#1]] RIGHT, ZO_ItemSetsBook_Keyboard_TopLevelFilters, RIGHT, -4, -8, --[[#2]] false, nil, nil, nil, nil, nil)
@@ -681,7 +681,7 @@ PP.compatibility = function ()
             PortToFriend_Body_BackdropMungeOverlay:SetHidden(true)
             PP:CreateBackground(PortToFriend_Header_Backdrop, --[[#1]] nil, nil, nil, 0, 0, --[[#2]] nil, nil, nil, 0, 0)
             PortToFriend_Header_BackdropMungeOverlay:SetHidden(true)
-            PP.Font(PortToFriend_Header, --[[Font]] PP.f.u67, 18, "outline", --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
+            PP.Font(PortToFriend_Header, --[[Font]] PP.f.u67, 18, 'outline', --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
         end
 
         -- ===============================================================================================--
@@ -783,7 +783,7 @@ PP.compatibility = function ()
                 PP.Anchor(AwesomeGuildStoreActivityStatusLine, nil, nil, nil, nil, -2)
                 PP.Anchor(AwesomeGuildStoreGuildSelector, LEFT, ZO_TradingHouseTitle, LEFT, 0, -2)
                 PP.Anchor(AwesomeGuildStoreGuildSelectorComboBoxOpenDropdown, LEFT, AwesomeGuildStoreGuildSelectorComboBoxSelectedItemText, RIGHT, 3, 5)
-                PP.Font(AwesomeGuildStoreGuildSelectorComboBoxSelectedItemText, PP.f.u67, 30, "outline", 0.9, nil, nil, nil, nil, 0, 0, 0, 0.8)
+                PP.Font(AwesomeGuildStoreGuildSelectorComboBoxSelectedItemText, PP.f.u67, 30, 'outline', 0.9, nil, nil, nil, nil, 0, 0, 0, 0.8)
                 PP.ScrollBar(AwesomeGuildStoreFilterArea)
                 ZO_Scroll_SetMaxFadeDistance(AwesomeGuildStoreFilterArea, 10)
                 PP.ScrollBar(AwesomeGuildStoreActivityWindowContainerListContents)
@@ -794,7 +794,7 @@ PP.compatibility = function ()
 
 
                 local function OnUpdateFn(rowControl)
-                    rowControl:GetNamedChild("SellerName"):SetHidden(true)
+                    rowControl:GetNamedChild('SellerName'):SetHidden(true)
                 end
 
                 -- Add post hook setup callback to hide seller name
@@ -866,45 +866,45 @@ PP.compatibility = function ()
             PP.Anchor(ZO_TradingHouseBrowseItemsLeftPaneCategoryListContainer, nil, nil, nil, nil, nil, true, nil, nil, nil, nil, -10)
 
             local function OnCreateFn(rowControl, result)
-                local name = rowControl:GetNamedChild("Name")
-                local timeRemaining = rowControl:GetNamedChild("TimeRemaining")
-                local sellPrice = rowControl:GetNamedChild("SellPriceText")
-                local pricePerUnit = rowControl:GetNamedChild("SellPricePerUnitText")
+                local name = rowControl:GetNamedChild('Name')
+                local timeRemaining = rowControl:GetNamedChild('TimeRemaining')
+                local sellPrice = rowControl:GetNamedChild('SellPriceText')
+                local pricePerUnit = rowControl:GetNamedChild('SellPricePerUnitText')
 
-                PP:SetLockFn(name, "SetWidth")
-                PP:SetLockFn(timeRemaining, "SetAnchor")
-                PP:SetLockFn(timeRemaining, "ClearAnchors")
-                PP:SetLockFn(sellPrice, "SetAnchor")
-                PP:SetLockFn(sellPrice, "ClearAnchors")
-                PP:SetLockFn(pricePerUnit, "SetAnchor")
-                PP:SetLockFn(pricePerUnit, "ClearAnchors")
+                PP:SetLockFn(name, 'SetWidth')
+                PP:SetLockFn(timeRemaining, 'SetAnchor')
+                PP:SetLockFn(timeRemaining, 'ClearAnchors')
+                PP:SetLockFn(sellPrice, 'SetAnchor')
+                PP:SetLockFn(sellPrice, 'ClearAnchors')
+                PP:SetLockFn(pricePerUnit, 'SetAnchor')
+                PP:SetLockFn(pricePerUnit, 'ClearAnchors')
             end
 
             local function OnUpdateFn(rowControl, result)
                 if not rowControl.ATT_Fix then
-                    local profitMargin = rowControl:GetNamedChild("ProfitMargin")
-                    local averagePricePerUnit = rowControl:GetNamedChild("AveragePricePerUnit")
-                    local averagePrice = rowControl:GetNamedChild("AveragePrice")
+                    local profitMargin = rowControl:GetNamedChild('ProfitMargin')
+                    local averagePricePerUnit = rowControl:GetNamedChild('AveragePricePerUnit')
+                    local averagePrice = rowControl:GetNamedChild('AveragePrice')
 
                     if profitMargin then
-                        PP.Font(profitMargin, PP.f.u67, 15, "shadow", 0.8, nil, nil, nil, nil, 0, 0, 0, 0.5)
+                        PP.Font(profitMargin, PP.f.u67, 15, 'shadow', 0.8, nil, nil, nil, nil, 0, 0, 0, 0.5)
                         PP.Anchor(profitMargin, nil, nil, nil, 0, 0)
-                        PP:SetLockFn(profitMargin, "SetFont")
+                        PP:SetLockFn(profitMargin, 'SetFont')
 
                         if averagePrice then
-                            PP.Font(averagePrice, PP.f.u67, 14, "shadow", 0.8, nil, nil, nil, nil, 0, 0, 0, 0.5)
+                            PP.Font(averagePrice, PP.f.u67, 14, 'shadow', 0.8, nil, nil, nil, nil, 0, 0, 0, 0.5)
                             PP.Anchor(averagePrice, TOPRIGHT, rowControl, TOPRIGHT, -145, 2)
-                            PP:SetLockFn(averagePrice, "SetFont")
-                            PP:SetLockFn(averagePrice, "SetAnchor")
-                            PP:SetLockFn(averagePrice, "ClearAnchors")
+                            PP:SetLockFn(averagePrice, 'SetFont')
+                            PP:SetLockFn(averagePrice, 'SetAnchor')
+                            PP:SetLockFn(averagePrice, 'ClearAnchors')
                         end
 
                         if averagePricePerUnit then
-                            PP.Font(averagePricePerUnit, PP.f.u67, 14, "shadow", 0.8, nil, nil, nil, nil, 0, 0, 0, 0.5)
+                            PP.Font(averagePricePerUnit, PP.f.u67, 14, 'shadow', 0.8, nil, nil, nil, nil, 0, 0, 0, 0.5)
                             PP.Anchor(averagePricePerUnit, TOPRIGHT, averagePrice, BOTTOMRIGHT, 0, -2)
-                            PP:SetLockFn(averagePricePerUnit, "SetFont")
-                            PP:SetLockFn(averagePricePerUnit, "SetAnchor")
-                            PP:SetLockFn(averagePricePerUnit, "ClearAnchors")
+                            PP:SetLockFn(averagePricePerUnit, 'SetFont')
+                            PP:SetLockFn(averagePricePerUnit, 'SetAnchor')
+                            PP:SetLockFn(averagePricePerUnit, 'ClearAnchors')
                         end
 
                         rowControl.ATT_Fix = true
@@ -962,27 +962,27 @@ PP.compatibility = function ()
             PP.Anchor(ZO_TradingHouseBrowseItemsLeftPane, --[[#1]] nil, nil, nil, nil, nil, --[[#2]] true, nil, nil, nil, nil, -50)
 
             local function OnCreateFn(rowControl, result)
-                local timeRemaining = rowControl:GetNamedChild("TimeRemaining")
-                local sellPrice = rowControl:GetNamedChild("SellPriceText")
-                local pricePerUnit = rowControl:GetNamedChild("SellPricePerUnitText")
+                local timeRemaining = rowControl:GetNamedChild('TimeRemaining')
+                local sellPrice = rowControl:GetNamedChild('SellPriceText')
+                local pricePerUnit = rowControl:GetNamedChild('SellPricePerUnitText')
 
-                PP:SetLockFn(timeRemaining, "SetAnchor")
-                PP:SetLockFn(timeRemaining, "ClearAnchors")
-                PP:SetLockFn(sellPrice, "SetAnchor")
-                PP:SetLockFn(sellPrice, "ClearAnchors")
-                PP:SetLockFn(pricePerUnit, "SetAnchor")
-                PP:SetLockFn(pricePerUnit, "ClearAnchors")
+                PP:SetLockFn(timeRemaining, 'SetAnchor')
+                PP:SetLockFn(timeRemaining, 'ClearAnchors')
+                PP:SetLockFn(sellPrice, 'SetAnchor')
+                PP:SetLockFn(sellPrice, 'ClearAnchors')
+                PP:SetLockFn(pricePerUnit, 'SetAnchor')
+                PP:SetLockFn(pricePerUnit, 'ClearAnchors')
             end
 
             local function OnUpdateFn(rowControl, result, ...)
                 if not rowControl.MM_Fix then
-                    local buyingAdvice = rowControl:GetNamedChild("BuyingAdvice")
+                    local buyingAdvice = rowControl:GetNamedChild('BuyingAdvice')
                     if buyingAdvice then
-                        PP.Font(buyingAdvice, --[[Font]] PP.f.u67, 14, "shadow", --[[Alpha]] 0.8, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
+                        PP.Font(buyingAdvice, --[[Font]] PP.f.u67, 14, 'shadow', --[[Alpha]] 0.8, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
                         PP.Anchor(buyingAdvice, --[[#1]] LEFT, nil, RIGHT, 0, 0)
-                        PP:SetLockFn(buyingAdvice, "SetFont")
-                        PP:SetLockFn(buyingAdvice, "SetAnchor")
-                        PP:SetLockFn(buyingAdvice, "ClearAnchors")
+                        PP:SetLockFn(buyingAdvice, 'SetFont')
+                        PP:SetLockFn(buyingAdvice, 'SetAnchor')
+                        PP:SetLockFn(buyingAdvice, 'ClearAnchors')
                         rowControl.MM_Fix = true
                     end
                 end
@@ -997,7 +997,7 @@ PP.compatibility = function ()
             end
             tinsert(PP.LoadFunc_TRADING_HOUSE, MasterMerchant_Compatibility)
 
-            ZO_PostHook(MasterMerchant, "AddBuyingAdvice", function (rowControl, result, ...)
+            ZO_PostHook(MasterMerchant, 'AddBuyingAdvice', function (rowControl, result, ...)
                 OnUpdateFn(rowControl, result, ...)
             end)
         end
@@ -1013,14 +1013,14 @@ PP.compatibility = function ()
             LAMAddonSettingsWindowBackgroundRight:SetHidden(true)
             LAMAddonSettingsWindowUnderlayLeft:SetHidden(true)
             LAMAddonSettingsWindowUnderlayRight:SetHidden(true)
-	        PP:CreateBackground(LAMAddonSettingsWindow,		--[[#1]] nil, nil, nil, 40, 60, --[[#2]] nil, nil, nil, 46, -50)
+            PP:CreateBackground(LAMAddonSettingsWindow, --[[#1]] nil, nil, nil, 40, 60, --[[#2]] nil, nil, nil, 46, -50)
 
             --Use LAM2-.0 callback "panel opened" to know when a panel was created, and add the PP style scrollbar then "once"
             local panelsWithPPScrollbar = {}
             local function addPPScrollbarToLAM2Panel(panel, updateScrollBar)
                 updateScrollBar = updateScrollBar or false
                 local scrollBarCtrl = (panel and panel.container and panel.container.scrollbar) or nil
-                if scrollBarCtrl  ~= nil then
+                if scrollBarCtrl ~= nil then
                     if not updateScrollBar then
                         PP.ScrollBar(scrollBarCtrl)
                         local scrollBarParent = scrollBarCtrl:GetParent()
@@ -1031,11 +1031,11 @@ PP.compatibility = function ()
                 end
             end
 
-            CM:RegisterCallback("LAM-PanelOpened", function(panel)
+            CM:RegisterCallback('LAM-PanelOpened', function (panel)
                 if panel and panelsWithPPScrollbar[panel] then return end
                 addPPScrollbarToLAM2Panel(panel, false)
             end)
-            CM:RegisterCallback("LAM-PanelControlsCreated", function(panel)
+            CM:RegisterCallback('LAM-PanelControlsCreated', function (panel)
                 if not panel then return end
                 if panelsWithPPScrollbar[panel] then
                     --Just update the scrollbar bounds
@@ -1051,8 +1051,8 @@ PP.compatibility = function ()
         -- ==pChat==--
         if pChat then
             pChat.ChangeChatWindowDarkness = PP.Empty
-            ZO_PostHook(pChat, "ApplyChatConfig", function (...)
-                PP:UpdateBackgrounds("ChatWindow")
+            ZO_PostHook(pChat, 'ApplyChatConfig', function (...)
+                PP:UpdateBackgrounds('ChatWindow')
             end)
         end
 
@@ -1061,8 +1061,8 @@ PP.compatibility = function ()
         -- ==rChat==--
         if rChat then
             rChat.ChangeChatWindowDarkness = PP.Empty
-            ZO_PostHook(rChat, "ApplyChatConfig", function (...)
-                PP:UpdateBackgrounds("ChatWindow")
+            ZO_PostHook(rChat, 'ApplyChatConfig', function (...)
+                PP:UpdateBackgrounds('ChatWindow')
             end)
         end
         -- ===============================================================================================--
@@ -1070,11 +1070,11 @@ PP.compatibility = function ()
         -- ==LibHistoire==--
         if LibHistoire then
             local wasHistyHooked = false
-            SecurePostHook(ZO_GuildHistory_Keyboard, "OnDeferredInitialize", function ()
+            SecurePostHook(ZO_GuildHistory_Keyboard, 'OnDeferredInitialize', function ()
                 if not wasHistyHooked then
                     local guildHistoryKeyboardTLCCtrl = ZO_GuildHistory_Keyboard_TL
                     local histyGuildHistoryTLC = LibHistoireGuildHistoryStatusWindow
-                    local histyGuildHistoryTLCBG = histyGuildHistoryTLC:GetNamedChild("Bg") -- LibHistoireGuildHistoryStatusWindowBg
+                    local histyGuildHistoryTLCBG = histyGuildHistoryTLC:GetNamedChild('Bg') -- LibHistoireGuildHistoryStatusWindowBg
                     if histyGuildHistoryTLCBG ~= nil then
                         PP:CreateBackground(histyGuildHistoryTLCBG, --[[#1]] nil, nil, nil, -6, 0, --[[#2]] nil, nil, nil, 0, 6)
                     end
@@ -1082,7 +1082,7 @@ PP.compatibility = function ()
                     wasHistyHooked = true
 
                     local function updateHistyUIForPP()
-                        local histyGuildHistoryTLCToggleButton = histyGuildHistoryTLC:GetNamedChild("ToggleButton") -- LibHistoireGuildHistoryStatusWindowToggleButton
+                        local histyGuildHistoryTLCToggleButton = histyGuildHistoryTLC:GetNamedChild('ToggleButton') -- LibHistoireGuildHistoryStatusWindowToggleButton
                         if histyGuildHistoryTLCToggleButton ~= nil then
                             histyGuildHistoryTLCToggleButton:ClearAnchors()
                             histyGuildHistoryTLCToggleButton:SetAnchor(BOTTOMLEFT, guildHistoryKeyboardTLCCtrl, BOTTOMLEFT, 0, 5)
@@ -1107,7 +1107,7 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
 
         -- ==FCO ChangeStuff==--
         if FCOCS then
-            MAIL_SEND_SCENE:RegisterCallback("StateChange", function (oldState, newState)
+            MAIL_SEND_SCENE:RegisterCallback('StateChange', function (oldState, newState)
                 if newState == SCENE_SHOWN then
                     local mailSettingsGearButton = ZO_MailSend_FCOChangeStuff_FCOCS_MailSettingsContextMenu
                     local mailReceiverTriangleButton = ZO_MailSendToLabel_FCOChangeStuff_FCOCS_MailRecipientsContextMenu
@@ -1133,7 +1133,7 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
                 end
             end)
 
-            GUILD_HISTORY_KEYBOARD_SCENE:RegisterCallback("StateChange", function (oldState, newState)
+            GUILD_HISTORY_KEYBOARD_SCENE:RegisterCallback('StateChange', function (oldState, newState)
                 if newState == SCENE_SHOWN then
                     --[[ -- Change size of guild history first and last buttons ]]
                     if FCOChangeStuff_GuildHistory_Nav_FirstPageButton ~= nil then
@@ -1151,9 +1151,9 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
         if FarmingParty then
             PP:CreateBackground(FarmingPartyWindowBG, --[[#1]] nil, nil, nil, 0, 0, --[[#2]] nil, nil, nil, 0, 0)
             PP:CreateBackground(FarmingPartyMembersWindowBG, --[[#1]] nil, nil, nil, 0, 0, --[[#2]] nil, nil, nil, 0, 0)
-            PP.Font(FarmingPartyMembersWindowHeadersFarmerName, --[[Font]] PP.f.u57, 16, "outline")
-            PP.Font(FarmingPartyMembersWindowHeadersBestItemNameName, --[[Font]] PP.f.u57, 16, "outline")
-            PP.Font(FarmingPartyMembersWindowTitle, --[[Font]] PP.f.u67, 18, "outline")
+            PP.Font(FarmingPartyMembersWindowHeadersFarmerName, --[[Font]] PP.f.u57, 16, 'outline')
+            PP.Font(FarmingPartyMembersWindowHeadersBestItemNameName, --[[Font]] PP.f.u57, 16, 'outline')
+            PP.Font(FarmingPartyMembersWindowTitle, --[[Font]] PP.f.u67, 18, 'outline')
             FarmingPartyWindowBGMungeOverlay:SetHidden(true)
             FarmingPartyMembersWindowBGMungeOverlay:SetHidden(true)
         end
@@ -1167,11 +1167,11 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
                 local frame = LibExtendedJournal.GetFrame()
                 PP:CreateBackground(frame, --[[#1]] nil, nil, nil, 0, 0, --[[#2]] nil, nil, nil, 0, 10)
                 PP.Anchor(frame, --[[#1]] TOPRIGHT, GuiRoot, TOPRIGHT, 0, 120, --[[#2]] true, BOTTOMRIGHT, GuiRoot, BOTTOMRIGHT, 0, -70)
-                PP.Font(frame:GetNamedChild("MenuBar"):GetNamedChild("Label"), --[[Font]] PP.f.u67, 22, "outline", --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
+                PP.Font(frame:GetNamedChild('MenuBar'):GetNamedChild('Label'), --[[Font]] PP.f.u67, 22, 'outline', --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.5)
             end
             local callbackList = function (control)
                 PP.ScrollBar(control)
-                local listCtrl = control:GetNamedChild("List")
+                local listCtrl = control:GetNamedChild('List')
                 if listCtrl then
                     ZO_Scroll_SetMaxFadeDistance(listCtrl, PP.savedVars.ListStyle.list_fade_distance)
                     ZO_ScrollList_Commit(listCtrl)
@@ -1185,9 +1185,9 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
         if JournalQuestLog then
             local jql = JournalQuestLog
             local function applyElementChanges()
-                local jqlWindowQuestIndexList = GetControl(jql.control, "QuestIndex")
-                PP.ScrollBar(jql.navigationTree.scrollControl,	--[[sb_c]] 180, 180, 180, .7, --[[bd_c]] 20, 20, 20, .7, false)
-                PP.ScrollBar(jqlWindowQuestIndexList,	--[[sb_c]] 180, 180, 180, .7, --[[bd_c]] 20, 20, 20, .7, false)
+                local jqlWindowQuestIndexList = GetControl(jql.control, 'QuestIndex')
+                PP.ScrollBar(jql.navigationTree.scrollControl, --[[sb_c]] 180, 180, 180, .7, --[[bd_c]] 20, 20, 20, .7, false)
+                PP.ScrollBar(jqlWindowQuestIndexList, --[[sb_c]] 180, 180, 180, .7, --[[bd_c]] 20, 20, 20, .7, false)
                 ZO_Scroll_SetMaxFadeDistance(jqlWindowQuestIndexList, PP.savedVars.ListStyle.list_fade_distance)
                 ZO_ScrollList_Commit(jqlWindowQuestIndexList)
 
@@ -1195,7 +1195,7 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
             end
             local journalQuestLogChanged = false
             local scene = JQL_SCENE
-            PP.onStateChangeCallback(scene, function(oldState, newState)
+            PP.onStateChangeCallback(scene, function (oldState, newState)
                 if newState == SCENE_SHOWN and not journalQuestLogChanged then
                     PP.journalSceneGroupEditScene(scene, jql.control, applyElementChanges)
                     journalQuestLogChanged = true
@@ -1211,7 +1211,7 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
 
             local function applyElementChanges()
                 PP.Bar(esoProfiler.statusBar, 14, 15)
-                PP.ScrollBar(esoProfiler.contentList,	--[[sb_c]] 180, 180, 180, .7, --[[bd_c]] 20, 20, 20, .7, false)
+                PP.ScrollBar(esoProfiler.contentList, --[[sb_c]] 180, 180, 180, .7, --[[bd_c]] 20, 20, 20, .7, false)
 
                 esoProfiler.control.PP_BG:SetHidden(false) --Somehow ESO profiler hides the background on first open of the scene?
 
@@ -1220,7 +1220,7 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
                 PP:CreateBackground(esoProfiler.script, --[[#1]] nil, nil, nil, 0, -15, --[[#2]] nil, nil, nil, 20, 10)
             end
             local esoProfilerChanged = false
-            PP.onStateChangeCallback(scene, function(oldState, newState)
+            PP.onStateChangeCallback(scene, function (oldState, newState)
                 if newState == SCENE_SHOWN and not esoProfilerChanged then
                     PP.journalSceneGroupEditScene(scene, esoProfiler.control, applyElementChanges)
                     esoProfilerChanged = true
@@ -1245,9 +1245,9 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
                 end)
                 ]]
 
-                ZO_PostHook(BMU, "OpenTeleporter", function(doRefresh)
+                ZO_PostHook(BMU, 'OpenTeleporter', function (doRefresh)
                     --Do nothing in GanmePad input mode, or when HarvestMap farm UI is shown
-                    if IsInGamepadPreferredMode() or SCENE_MANAGER:IsShowing("HarvestFarmScene") then return end
+                    if IsInGamepadPreferredMode() or SCENE_MANAGER:IsShowing('HarvestFarmScene') then return end
 
                     --d("[PP]BMU OpenTeleporter - doRefresh: " .. tos(doRefresh))
                     --if doRefresh == true then
@@ -1279,7 +1279,7 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
 
                         local function updateBMUListBackdrop(doHide)
                             --Set the texture of the backdrop to an invisible one
-                            bmuGlobalBGCtrl:SetTexture("/esoui/art/icons/heraldrycrests_misc_blank_01.dds") --original one was: "/esoui/art/miscellaneous/centerscreen_left.dds"
+                            bmuGlobalBGCtrl:SetTexture('/esoui/art/icons/heraldrycrests_misc_blank_01.dds') --original one was: "/esoui/art/miscellaneous/centerscreen_left.dds"
                             --Create and reanchor PP BG texture
                             PP:CreateBackground(bmuGlobalBGCtrl, nil, nil, nil, -2, 50, nil, nil, nil, -2, -110)
                             local bmuPPBG = bmuGlobalBGCtrl.PP_BG
@@ -1289,7 +1289,7 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
                         local function updateBMUListSlider()
                             if slider == nil then return end
                             --Overwrite self.slider_texture with PP's so on next "local _on_resize(self)" it will use this texture now for the slider
-                            bmuTeleporterList.slider_texture = "PerfectPixel/tex/tex_white.dds"
+                            bmuTeleporterList.slider_texture = 'PerfectPixel/tex/tex_white.dds'
                             --local tex = bmuTeleporterList.slider_texture
                             PP.ScrollBar(slider)
 
@@ -1309,11 +1309,11 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
                         --BMU.ListView.new(teleporterWin.Main_Control, ...) -> _initialize_listview -> _create_listview_lines_if_needed -> _create_listview_row
                         -->List lines setupFunc ??? All custom BMU code wtf... Why Isn't it simply using ZO_ScrollList templates etc. :-(
 
-                        ZO_PostHookHandler(bmuGlobalCtrl, "OnResizeStop", function(self)
+                        ZO_PostHookHandler(bmuGlobalCtrl, 'OnResizeStop', function (self)
                             updateBMUListSlider()
                         end)
-                        CALLBACK_MANAGER:RegisterCallback('BMU_List_Updated', function()
---d("[PP]CALLBACK fired - BMU List updated")
+                        CALLBACK_MANAGER:RegisterCallback('BMU_List_Updated', function ()
+                            --d("[PP]CALLBACK fired - BMU List updated")
                             --updateBMUListBackdrop(false)
                             updateBMUListSlider()
                         end)
@@ -1360,7 +1360,6 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
                             --bmuGlobalBGCtrl:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, LEFT + bmuSVAcc.pos_x, bmuSVAcc.pos_y)
                         end
                         ]]
-
                     end
                     --end
 
@@ -1394,8 +1393,8 @@ d("[PP]GUILD_HISTORY_KEYBOARD_SCENE:SHown")
 
         -- ===============================================================================================--
         -- UnregisterForEvent--
-        EVENT_MANAGER:UnregisterForEvent(PP.ADDON_NAME .. "Compatibility", EVENT_PLAYER_ACTIVATED)
+        EVENT_MANAGER:UnregisterForEvent(PP.ADDON_NAME .. 'Compatibility', EVENT_PLAYER_ACTIVATED)
     end
 
-    EVENT_MANAGER:RegisterForEvent(PP.ADDON_NAME .. "Compatibility", EVENT_PLAYER_ACTIVATED, Compatibility)
+    EVENT_MANAGER:RegisterForEvent(PP.ADDON_NAME .. 'Compatibility', EVENT_PLAYER_ACTIVATED, Compatibility)
 end

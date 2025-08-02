@@ -9,35 +9,35 @@ PP.worldMapScene = function ()
         toggle = true,
         large = true,
     }
-    local SV = ZO_SavedVars:NewAccountWide(PP.ADDON_NAME, SV_VER, "WorldMap", DEF, GetWorldName())
+    local SV = ZO_SavedVars:NewAccountWide(PP.ADDON_NAME, SV_VER, 'WorldMap', DEF, GetWorldName())
 
     -- LAM Menu Options
     local function CreateOptions()
         table.insert(PP.optionsData,
-            {
-                type = "submenu",
-                name = GetString(PP_LAM_SCENE_WORLDMAP),
-                controls =
-                {
-                    {
-                        type = "checkbox",
-                        name = GetString(PP_LAM_ACTIVATE),
-                        getFunc = function () return SV.toggle end,
-                        setFunc = function (value) SV.toggle = value end,
-                        default = DEF.toggle,
-                        requiresReload = true,
-                    },
-                    {
-                        type = "checkbox",
-                        name = GetString(PP_LAM_SCENE_WORLDMAP_LARGE),
-                        getFunc = function () return SV.large end,
-                        setFunc = function (value) SV.large = value end,
-                        default = DEF.large,
-                        disabled = function () return not SV.toggle end,
-                        requiresReload = true,
-                    },
-                },
-            })
+                     {
+                         type = 'submenu',
+                         name = GetString(PP_LAM_SCENE_WORLDMAP),
+                         controls =
+                         {
+                             {
+                                 type = 'checkbox',
+                                 name = GetString(PP_LAM_ACTIVATE),
+                                 getFunc = function () return SV.toggle end,
+                                 setFunc = function (value) SV.toggle = value end,
+                                 default = DEF.toggle,
+                                 requiresReload = true,
+                             },
+                             {
+                                 type = 'checkbox',
+                                 name = GetString(PP_LAM_SCENE_WORLDMAP_LARGE),
+                                 getFunc = function () return SV.large end,
+                                 setFunc = function (value) SV.large = value end,
+                                 default = DEF.large,
+                                 disabled = function () return not SV.toggle end,
+                                 requiresReload = true,
+                             },
+                         },
+                     })
     end
 
     -- Early exit if disabled
@@ -62,14 +62,14 @@ PP.worldMapScene = function ()
 
     -- Setup background visibility handling
     local function SetupBackgroundVisibility()
-        PP:SetLockFn(ZO_WorldMap.PP_BG, "SetHidden")
+        PP:SetLockFn(ZO_WorldMap.PP_BG, 'SetHidden')
 
-        WORLD_MAP_SCENE:RegisterCallback("StateChange", function (oldState, newState)
+        WORLD_MAP_SCENE:RegisterCallback('StateChange', function (oldState, newState)
             if newState == SCENE_SHOWN then
                 ZO_WorldMapMapFrame:SetHidden(true)
-                PP:CallLockFn(ZO_WorldMap.PP_BG, "SetHidden", false)
+                PP:CallLockFn(ZO_WorldMap.PP_BG, 'SetHidden', false)
             elseif newState == SCENE_HIDDEN then
-                PP:CallLockFn(ZO_WorldMap.PP_BG, "SetHidden", true)
+                PP:CallLockFn(ZO_WorldMap.PP_BG, 'SetHidden', true)
             end
         end)
     end
@@ -77,8 +77,8 @@ PP.worldMapScene = function ()
     -- Style UI elements
     local function StyleUIElements()
         -- Zoom controls
-        ZO_WorldMapZoomKeybindKeyLabel:SetFont(PP.f.u57 .. "|16")
-        ZO_WorldMapZoomKeybindNameLabel:SetFont(PP.f.u67 .. "|18|outline")
+        ZO_WorldMapZoomKeybindKeyLabel:SetFont(PP.f.u57 .. '|16')
+        ZO_WorldMapZoomKeybindNameLabel:SetFont(PP.f.u67 .. '|18|outline')
         ZO_WorldMapZoomDivider:SetHidden(true)
 
         -- Menu bar
@@ -137,7 +137,7 @@ PP.worldMapScene = function ()
     local function SetupContentPanes()
         local panes =
         {
-            { control = ZO_WorldMapQuests,    x = 0 },
+            { control = ZO_WorldMapQuests,    x = 0   },
             { control = ZO_WorldMapKey,       x = -20 },
             { control = ZO_WorldMapFilters,   x = -20 },
             { control = ZO_WorldMapLocations, x = -20 },
@@ -171,7 +171,7 @@ PP.worldMapScene = function ()
         PP.Anchor(ZO_WorldMapZoneStoryTopLevel_KeyboardTitle, --[[#1]] BOTTOM, ZO_WorldMapZoneStoryTopLevel_Keyboard, TOP, 8, -2)
 
         -- Style title
-        PP.Font(ZO_WorldMapZoneStoryTopLevel_KeyboardTitle, --[[Font]] PP.f.u67, 24, "outline", --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.8)
+        PP.Font(ZO_WorldMapZoneStoryTopLevel_KeyboardTitle, --[[Font]] PP.f.u67, 24, 'outline', --[[Alpha]] 0.9, --[[Color]] nil, nil, nil, nil, --[[StyleColor]] 0, 0, 0, 0.8)
         ZO_WorldMapZoneStoryTopLevel_KeyboardTitleDivider:SetHidden(true)
 
         -- Hook completion type setup
@@ -184,7 +184,7 @@ PP.worldMapScene = function ()
         end
 
         -- Hook refresh info
-        ZO_PostHook(ZO_WorldMapZoneStory_Keyboard, "RefreshInfo", function (self)
+        ZO_PostHook(ZO_WorldMapZoneStory_Keyboard, 'RefreshInfo', function (self)
             local listData = ZO_ScrollList_GetDataList(self.list)
             if self:IsShowing() then
                 self.control:SetDimensions(300, #listData * 40)
@@ -224,7 +224,7 @@ PP.worldMapScene = function ()
             end
         end
 
-        WORLD_MAP_SCENE:RegisterCallback("StateChange", function (oldState, newState)
+        WORLD_MAP_SCENE:RegisterCallback('StateChange', function (oldState, newState)
             if newState == SCENE_SHOWING then
                 MapSize()
             end
