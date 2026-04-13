@@ -89,15 +89,20 @@ local function Edit_ZO_QuestJournal()
 	SetupSavedVariables()
 
 	--questJournal--ZO_QuestJournal--------------------------------------------------------------------
-	PP.ScrollBar(ZO_QuestJournalNavigationContainer, --[[sb_c]] 180, 180, 180, 0.7, --[[bd_c]] 20, 20, 20, 0.7, false)
-	PP.Anchor(ZO_QuestJournalQuestCount, --[[#1]] TOPLEFT, nil, TOPLEFT, 0, -6)
-	PP.Anchor(ZO_QuestJournalNavigationContainerScroll, --[[#1]] TOPLEFT, nil, TOPLEFT, 5, 0, --[[#2]] true, BOTTOMRIGHT, nil, BOTTOMRIGHT, 0, 0)
-	PP.Font(ZO_QuestJournalQuestCount, --[[Font]] PP.f.u67, 24, "outline")
-	ZO_Scroll_SetMaxFadeDistance(ZO_QuestJournalNavigationContainer, 10)
+	local questsKB       = ZO_QUEST_JOURNAL_QUESTS_KEYBOARD
+	if not questsKB then return end
+	local questCountLabel = questsKB.questCount
+	local navContainer    = questsKB.control:GetNamedChild("NavigationContainer")
+	local navScroll       = navContainer:GetNamedChild("Scroll")
+
+	PP.ScrollBar(navContainer, --[[sb_c]] 180, 180, 180, 0.7, --[[bd_c]] 20, 20, 20, 0.7, false)
+	PP.Anchor(questCountLabel, --[[#1]] TOPLEFT, nil, TOPLEFT, 0, -6)
+	PP.Anchor(navScroll, --[[#1]] TOPLEFT, nil, TOPLEFT, 5, 0, --[[#2]] true, BOTTOMRIGHT, nil, BOTTOMRIGHT, 0, 0)
+	PP.Font(questCountLabel, --[[Font]] PP.f.u67, 24, "outline")
+	ZO_Scroll_SetMaxFadeDistance(navContainer, 10)
 
 	if SV.largeQuestList then
-		local questJournalKeyboardObj = QUEST_JOURNAL_KEYBOARD  -- scenes[1].gVar -- QUEST_JOURNAL_KEYBOARD
-		local tree = questJournalKeyboardObj.navigationTree
+		local tree = questsKB.navigationTree
 		tree.defaultIndent = 50		--[[def (40)]]
 		tree.defaultSpacing = 0		--[[def (-10)]]
 		tree.width = 340			--[[def (300)]]
@@ -106,7 +111,7 @@ local function Edit_ZO_QuestJournal()
 			treeNode:SetOpen(true, false)
 		end
 
-		PP.Anchor(ZO_QuestJournalNavigationContainerScroll, --[[#1]] TOPLEFT, nil, TOPLEFT, 0, 0, --[[#2]] true, BOTTOMRIGHT, nil, BOTTOMRIGHT, 0, 0)
+		PP.Anchor(navScroll, --[[#1]] TOPLEFT, nil, TOPLEFT, 0, 0, --[[#2]] true, BOTTOMRIGHT, nil, BOTTOMRIGHT, 0, 0)
 
 		--TreeHeaderSetup(node, control, name, open)
 		local treeHeader = tree.templateInfo.ZO_SimpleArrowIconHeader
@@ -179,12 +184,13 @@ local function Edit_ZO_QuestJournal()
 			treeEntrySetHandler(control)
 		end
 
-		questJournalKeyboardObj.listDirty = true
+		questsKB.listDirty = true
 	end
-	if ZO_QuestJournalShowOnMap then
+	local showOnMap = questsKB.showOnMapKeybindButton
+	if showOnMap then
 		--shrink size of the keybind like at the keybind strip
-		ZO_QuestJournalShowOnMapNameLabel:SetFont(PP.f.u67 .. "|18|outline")
-		ZO_QuestJournalShowOnMapKeyLabel:SetFont(PP.f.u67 .. "|18|outline")
+		showOnMap:GetNamedChild("NameLabel"):SetFont(PP.f.u67 .. "|18|outline")
+		showOnMap:GetNamedChild("KeyLabel"):SetFont(PP.f.u67 .. "|18|outline")
 	end
 end
 
