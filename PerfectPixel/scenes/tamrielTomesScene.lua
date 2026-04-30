@@ -36,10 +36,13 @@ PP.tamrielTomesScene = function ()
     tamrielTomesScene:RemoveFragment(TITLE_FRAGMENT)
 
     PP.onDeferredInitCheck(TAMRIEL_TOMES_SCREEN_KEYBOARD, function ()
-        PP:CreateBackground(ZO_TamrielTomes_KeyboardTL, --[[#1]] nil, nil, nil, -10, -10, --[[#2]] nil, nil, nil, 0, 10)
+        local TTTlc = TAMRIEL_TOMES_SCREEN_KEYBOARD.control --ZO_TamrielTomes_KeyboardTL
+        PP:CreateBackground(TTTlc, --[[#1]] nil, nil, nil, -10, -10, --[[#2]] nil, nil, nil, 0, 10)
         ZO_TamrielTomes_KeyboardTLPageBackground:SetHidden(true)
 
-        PP.Anchor(ZO_TamrielTomes_KeyboardTL, --[[#1]] TOPRIGHT, GuiRoot, TOPRIGHT, 0, 120, --[[#2]] true, BOTTOMRIGHT, GuiRoot, BOTTOMRIGHT, 0, -70)
+        PP.Anchor(TTTlc, --[[#1]] TOPRIGHT, GuiRoot, TOPRIGHT, 0, 120, --[[#2]] true, BOTTOMRIGHT, GuiRoot, BOTTOMRIGHT, 0, -70)
+
+        PP.Anchor(ZO_TamrielTomes_KeyboardTLHeader, --[[#1]] TOP, TTTlc, TOP, 0, 10)
 
         PP.Font(ZO_TamrielTomes_KeyboardTLHeaderTitle, --[[Font]] PP.f.u67, 28, "outline")
         PP.Font(ZO_TamrielTomes_KeyboardTLHeaderSubtitle, --[[Font]] PP.f.u67, 16, "outline")
