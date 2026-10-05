@@ -65,6 +65,7 @@ EVENT_MANAGER:RegisterForEvent(PP.ADDON_NAME, EVENT_ADD_ON_LOADED, function(even
 		PP.contextMenus()
 		PP.compass()
 		PP.reticle()
+		PP.hudTrackers()
 		PP.tabs()
 		PP.dialogsMenu()
 		PP.chatWindow()

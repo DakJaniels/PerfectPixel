@@ -48,6 +48,7 @@ scenes\tamrielTomesScene.lua
 
 modules\chatWindow.lua
 modules\compass.lua
+modules\hudTrackers.lua
 modules\contextMenu.lua
 modules\dialogsMenu.lua
 modules\keybindStrip.lua
